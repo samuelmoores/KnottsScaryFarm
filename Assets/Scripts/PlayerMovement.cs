@@ -3,7 +3,8 @@ using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed;
+    public float playerSpeed;
+    public float playerRotation;
 
     CharacterController controller;
     Animator animator;
@@ -23,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         Vector3 direction = new Vector3(horizontal, 0.0f, vertical);
-
         direction.Normalize();
 
         if(direction != Vector3.zero)
@@ -32,10 +32,11 @@ public class PlayerMovement : MonoBehaviour
             direction.Normalize();
 
             Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 500 * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerRotation*100 * Time.deltaTime);
         }
 
-        controller.Move(direction * speed * Time.deltaTime);
+
+        controller.Move(direction * playerSpeed * Time.deltaTime);
         animator.SetBool("running", direction != Vector3.zero);
     }
 }
