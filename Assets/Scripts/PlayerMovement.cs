@@ -35,8 +35,10 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerRotation*100 * Time.deltaTime);
         }
 
-
         controller.Move(direction * playerSpeed * Time.deltaTime);
         animator.SetBool("running", direction != Vector3.zero);
+
+        transform.position = new Vector3(transform.position.x, 0.0f, transform.position.z);
+
     }
 }
