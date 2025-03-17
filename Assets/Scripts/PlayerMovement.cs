@@ -5,6 +5,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public float playerSpeed;
     public float playerRotation;
+    public AudioClip[] footstepSound;
+    public float footstepVolume = 1.0f;
+    int footstep = 0;
 
     CharacterController controller;
     Animator animator;
@@ -38,7 +41,14 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(direction * playerSpeed * Time.deltaTime);
         animator.SetBool("running", direction != Vector3.zero);
 
-        transform.position = new Vector3(transform.position.x, 0.0f, transform.position.z);
+    }
 
+    public void Footstep()
+    {
+        SoundManager.instance.PlaySound(footstepSound[footstep++], gameObject.transform, footstepVolume);
+        if(footstep == 2)
+        {
+            footstep = 0;
+        }
     }
 }

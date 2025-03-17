@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public GameObject inventory_obj;
     Inventory inventory;
     Pickup pickup;
     bool foundPickup = false;
@@ -10,8 +11,7 @@ public class Player : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
-        inventory.gameObject.SetActive(false);
+        inventory = inventory_obj.GetComponent<Inventory>();
     }
 
     // Update is called once per frame
@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.E))
             {
+                Debug.Log(pickup);
                 inventory.Add(pickup);
                 pickup.Take();
                 foundPickup = false; 

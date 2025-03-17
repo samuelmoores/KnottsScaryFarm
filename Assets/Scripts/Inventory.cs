@@ -13,9 +13,10 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         items = new Pickup[4];
+        Debug.Log(items);
         corndog = Resources.Load<Sprite>("Corndog");
         button_0 = GameObject.Find("Button (0)");
-
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -31,8 +32,11 @@ public class Inventory : MonoBehaviour
 
     public void Add(Pickup newItem)
     {
+        Debug.Log(items.Length);
+
        if(num_items < items.Length)
         {
+            Debug.Log(newItem);
             items[num_items++] = newItem;
             button_0.GetComponent<Image>().sprite = corndog;
         }
