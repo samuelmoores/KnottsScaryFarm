@@ -13,7 +13,6 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         items = new Pickup[4];
-        Debug.Log(items);
         corndog = Resources.Load<Sprite>("Corndog");
         button_0 = GameObject.Find("Button (0)");
         gameObject.SetActive(false);

@@ -16485,6 +16485,62 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4724947438969112626, guid: fd1f601006cf83f4e920c3ed5efff23b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -1314.1931
+      objectReference: {fileID: 0}
+    - target: {fileID: 4724947438969112626, guid: fd1f601006cf83f4e920c3ed5efff23b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -855.8597
+      objectReference: {fileID: 0}
+    - target: {fileID: 5728826490359694548, guid: fd1f601006cf83f4e920c3ed5efff23b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -4.998413
+      objectReference: {fileID: 0}
+    - target: {fileID: 5728826490359694548, guid: fd1f601006cf83f4e920c3ed5efff23b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -14.141014
+      objectReference: {fileID: 0}
+    - target: {fileID: 6184196977465228240, guid: fd1f601006cf83f4e920c3ed5efff23b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6184196977465228240, guid: fd1f601006cf83f4e920c3ed5efff23b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 53
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978070244018870624, guid: fd1f601006cf83f4e920c3ed5efff23b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 387.2158
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978070244018870624, guid: fd1f601006cf83f4e920c3ed5efff23b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 373.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978070244018870624, guid: fd1f601006cf83f4e920c3ed5efff23b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.000030505
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978070244018870624, guid: fd1f601006cf83f4e920c3ed5efff23b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 233
+      objectReference: {fileID: 0}
+    - target: {fileID: 7569894166561364840, guid: fd1f601006cf83f4e920c3ed5efff23b, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7569894166561364840, guid: fd1f601006cf83f4e920c3ed5efff23b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 50d2635c96e03b8459cefea862fd0e2c, type: 3}
+    - target: {fileID: 7865955908806444325, guid: fd1f601006cf83f4e920c3ed5efff23b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 50d2635c96e03b8459cefea862fd0e2c, type: 3}
+    - target: {fileID: 7865955908806444325, guid: fd1f601006cf83f4e920c3ed5efff23b, type: 3}
+      propertyPath: m_Color.a
+      value: 0.1764706
+      objectReference: {fileID: 0}
     - target: {fileID: 9138590220071018503, guid: fd1f601006cf83f4e920c3ed5efff23b, type: 3}
       propertyPath: m_Name
       value: Canvas
