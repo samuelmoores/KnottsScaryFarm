@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class CameraController : MonoBehaviour
 {
     Transform CameraFollowObject;
+    Transform LookAtTarget;
     public float inputSensitivity = 150.0f;
     public float clampAngle = 80.0f;
 
@@ -13,7 +14,7 @@ public class CameraController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        CameraFollowObject = GameObject.Find("CameraTarget").transform;
+        CameraFollowObject = GameObject.Find("Player").transform;
         Vector3 rot = transform.localRotation.eulerAngles;
         rotY = rot.y;
         rotX = rot.x;

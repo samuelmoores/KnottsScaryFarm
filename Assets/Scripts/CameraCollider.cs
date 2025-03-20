@@ -7,6 +7,7 @@ public class CameraCollider : MonoBehaviour
     public float smooth = 10.0f;
 
     GameObject player;
+    GameObject cameraTarget;
     Vector3 dollyDir;
     Vector3 desiredCameraPos;
     RaycastHit hit;
@@ -16,6 +17,7 @@ public class CameraCollider : MonoBehaviour
     void Awake()
     {
         player = GameObject.Find("Player");
+        cameraTarget = GameObject.Find("CameraTarget");
         dollyDir = transform.localPosition.normalized;
         distance = transform.localPosition.magnitude;
         maxDistance = Vector3.Distance(player.transform.position, transform.position);
@@ -37,6 +39,7 @@ public class CameraCollider : MonoBehaviour
         }
 
         transform.localPosition = Vector3.Lerp(transform.localPosition, dollyDir * distance, Time.deltaTime * smooth);
+        transform.LookAt(cameraTarget.transform);
     }
 
 }
