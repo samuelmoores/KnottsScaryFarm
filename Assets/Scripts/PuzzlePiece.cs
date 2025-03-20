@@ -18,9 +18,9 @@ public class PuzzlePiece : MonoBehaviour
         startingPosition.y = transform.position.y;
         startingPosition.z = transform.position.z;
 
-        x = Random.Range(1, 100);
-        y = Random.Range(1, 100);
-        z = Random.Range(1, 100);
+        x = Random.Range(1, 3);
+        y = Random.Range(1, 3);
+        z = Random.Range(1, 3);
     }
 
     // Update is called once per frame
@@ -49,7 +49,10 @@ public class PuzzlePiece : MonoBehaviour
 
             }
 
-
+        }
+        else
+        {
+            rb.angularVelocity = new Vector3(x, y, z);
         }
     }
 }
