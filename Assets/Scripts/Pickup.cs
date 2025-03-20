@@ -4,6 +4,7 @@ using UnityEngine;
 public class Pickup : MonoBehaviour
 {
     public float rotationSpeed;
+    public AudioClip PickupSound;
 
     GameManager gm;
 
@@ -26,9 +27,13 @@ public class Pickup : MonoBehaviour
 
     public void Take()
     {
-        pickedUp = true;
-        gm.HideInteractText();
-        Destroy(gameObject);
+        if(!pickedUp)
+        {
+            pickedUp = true;
+            gm.HideInteractText();
+            SoundManager.instance.PlaySound(PickupSound, transform, 0.5f);
+            Destroy(gameObject, PickupSound.length);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

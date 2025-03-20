@@ -6200,6 +6200,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   secretEntrance: {fileID: 747141089}
   fence: {fileID: 781324758}
+  wrongSound: {fileID: 8300000, guid: ed6abf3e9811d544ebe89f1509722403, type: 3}
+  rightSound: {fileID: 8300000, guid: 1e3f09d7772852842bf43e823c911760, type: 3}
 --- !u!135 &838243968
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -7474,6 +7476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 100
+  PickupSound: {fileID: 8300000, guid: 14e462df64ff64c4ca86dbf9539c920c, type: 3}
 --- !u!135 &993247535
 SphereCollider:
   m_ObjectHideFlags: 0

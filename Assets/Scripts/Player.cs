@@ -50,7 +50,6 @@ public class Player : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.E))
             {
-                Debug.Log(pickup);
                 inventory.Add(pickup);
                 pickup.Take();
                 foundPickup = false; 
@@ -58,7 +57,7 @@ public class Player : MonoBehaviour
         }
 
         //interacting
-        isInteracting = Input.GetKey(KeyCode.E);
+        isInteracting = Input.GetKeyDown(KeyCode.E);
 
        
     }

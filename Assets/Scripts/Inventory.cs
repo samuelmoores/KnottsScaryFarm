@@ -31,11 +31,8 @@ public class Inventory : MonoBehaviour
 
     public void Add(Pickup newItem)
     {
-        Debug.Log(items.Length);
-
        if(num_items < items.Length)
         {
-            Debug.Log(newItem);
             items[num_items++] = newItem;
             button_0.GetComponent<Image>().sprite = corndog;
         }

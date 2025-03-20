@@ -5,6 +5,8 @@ public class Clown : MonoBehaviour
 {
     public GameObject secretEntrance;
     public GameObject fence;
+    public AudioClip wrongSound;
+    public AudioClip rightSound;
 
     Player player;
     GameManager gm;
@@ -35,16 +37,20 @@ public class Clown : MonoBehaviour
                 {
                     AcceptGift();
                 }
+                else
+                {
+                    SoundManager.instance.PlaySound(wrongSound, transform, 0.05f);
+                }
             }
         }
     }
 
     public void AcceptGift()
     {
+        SoundManager.instance.PlaySound(rightSound, transform, 0.5f);
         hasGift = true;
         animator.SetBool("takeGift", true);
         gm.HideInteractText();
-
         fence.SetActive(false);
         secretEntrance.SetActive(true);
     }
