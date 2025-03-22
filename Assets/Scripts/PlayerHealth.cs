@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
     public AnimationClip damageAnimation;
+    public int currentScene;
 
     Animator animator;
 
@@ -10,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
     bool dead = false;
     bool damaged = false;
     float damageTimer = 0.0f;
+    float restartTimer = 4.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,6 +27,15 @@ public class PlayerHealth : MonoBehaviour
         if(damaged && damageTimer > 0.0f)
         {
             damageTimer -= Time.deltaTime;
+        }
+        else if(dead)
+        {
+            restartTimer -= Time.deltaTime;
+
+            if(restartTimer < 0.0f)
+            {
+                SceneManager.LoadScene(currentScene);
+            }
         }
         else
         {
@@ -41,6 +53,7 @@ public class PlayerHealth : MonoBehaviour
         {
             health = 0.0f;
             dead = true;
+            animator.SetBool("dead", true);
         }
     }
 
@@ -53,10 +66,14 @@ public class PlayerHealth : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Damage"))
         {
-            animator.SetTrigger("damage");
             TakeDamage(0.3f);
             Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
             rb.linearVelocity /= 2;
+
+            if(!dead)
+            {
+                animator.SetTrigger("damage");
+            }
         }
     }
 }
