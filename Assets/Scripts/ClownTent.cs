@@ -2,14 +2,17 @@ using UnityEngine;
 
 public class ClownTent : MonoBehaviour
 {
-    public GameObject Tomato;
+    public GameObject tomato;
     public Transform hand;
+    public Transform throwTarget;
+    public float throwSpeed = 30.0f;
 
     GameObject tomato_instance;
     GameObject player;
+    Animator animator;
+
     float distance_to_player = 0.0f;
     float throw_distance = 22.0f;
-    Animator animator;
     float throwTimer = 3.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,7 +34,7 @@ public class ClownTent : MonoBehaviour
         if(throwTimer <= 0.0f && distance_to_player < throw_distance)
         {
             animator.SetTrigger("throw");
-            throwTimer = 3.0f;
+            throwTimer = Random.Range(3.0f, 7.0f);
         }
     }
 
@@ -39,11 +42,11 @@ public class ClownTent : MonoBehaviour
     {
         if(distance_to_player < throw_distance)
         {
-            tomato_instance = Instantiate(Tomato, hand.position, Tomato.transform.rotation);
+            tomato_instance = Instantiate(tomato, hand.position, tomato.transform.rotation);
             Rigidbody rb = tomato_instance.GetComponent<Rigidbody>();
-            rb.AddForce((player.transform.position - transform.position).normalized * 10.0f, ForceMode.Impulse);
+            rb.AddForce((throwTarget.position - hand.position).normalized * throwSpeed, ForceMode.Impulse);
             rb.angularVelocity = tomato_instance.transform.right * -15.0f;
-            Destroy(tomato_instance, 5.0f);
+            Destroy(tomato_instance, 15.0f);
         }
     }
 }

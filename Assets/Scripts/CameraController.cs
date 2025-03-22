@@ -7,6 +7,7 @@ public class CameraController : MonoBehaviour
     Transform LookAtTarget;
     public float inputSensitivity = 150.0f;
     public float clampAngle = 80.0f;
+    public bool invertCamera = false;
 
     float rotX;
     float rotY;
@@ -32,7 +33,16 @@ public class CameraController : MonoBehaviour
         float inputZ = Input.GetAxis("Mouse Y");
 
         rotY += inputX * inputSensitivity * Time.deltaTime;
-        rotX += inputZ * -inputSensitivity * Time.deltaTime;
+
+        if(invertCamera)
+        {
+            rotX += inputZ * inputSensitivity * Time.deltaTime;
+
+        }
+        else
+        {
+            rotX += inputZ * -inputSensitivity * Time.deltaTime;
+        }
 
         rotX = Mathf.Clamp(rotX, -clampAngle, clampAngle);
 

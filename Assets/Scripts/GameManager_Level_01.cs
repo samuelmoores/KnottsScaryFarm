@@ -29,7 +29,9 @@ public class GameManager_Level_01 : MonoBehaviour
         interactText = GameObject.Find("InteractText").GetComponent<TextMeshProUGUI>();
         interactObject.SetActive(false);
 
-        Wall_Door.SetActive(false);
+        Wall_Door.SetActive(true);
+        Wall.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -42,7 +44,7 @@ public class GameManager_Level_01 : MonoBehaviour
     {
         score++;
 
-        if(score == 3)
+        if(score == score_to_win)
         {
             Win();
         }

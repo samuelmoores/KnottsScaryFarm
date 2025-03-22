@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 934402629514104066}
   - component: {fileID: 6677016415747498542}
   - component: {fileID: 8431616822522610796}
-  - component: {fileID: 4947872810368040754}
   - component: {fileID: 5356056072363732444}
   m_Layer: 1
   m_Name: Player 1
@@ -72,31 +71,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!143 &4947872810368040754
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2084368390306050925}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 1.95
-  m_Radius: 0.21
-  m_SlopeLimit: 0
-  m_StepOffset: 0.001
-  m_SkinWidth: 1
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.01, z: 0}
 --- !u!114 &5356056072363732444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +89,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4f11be3f78c061247b8d5d30458a1d90, type: 3}
   - {fileID: 8300000, guid: eb71a3fd682d40744ae1e5a4e037ec89, type: 3}
   footstepVolume: 1
+  jumpHeight: 0
 --- !u!1 &3418376811983762633
 GameObject:
   m_ObjectHideFlags: 0
