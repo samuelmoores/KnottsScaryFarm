@@ -32,7 +32,7 @@ public class CameraController : MonoBehaviour
         float inputZ = Input.GetAxis("Mouse Y");
 
         rotY += inputX * inputSensitivity * Time.deltaTime;
-        rotX += inputZ * inputSensitivity * Time.deltaTime;
+        rotX += inputZ * -inputSensitivity * Time.deltaTime;
 
         rotX = Mathf.Clamp(rotX, -clampAngle, clampAngle);
 

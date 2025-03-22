@@ -20,8 +20,8 @@ public class Block : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("PuzzlePiece"))
         {
-            Debug.Log("You Win!");
             SoundManager.instance.PlaySound(sound, transform);
+            GameManager_Level_01.instance.Score();
         }
     }
 }

@@ -24,4 +24,5 @@ public class LevelLoader : MonoBehaviour
             SceneManager.LoadScene(nextScene);
         }
     }
+
 }

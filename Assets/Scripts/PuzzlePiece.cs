@@ -21,6 +21,7 @@ public class PuzzlePiece : MonoBehaviour
         x = Random.Range(1, 3);
         y = Random.Range(1, 3);
         z = Random.Range(1, 3);
+
     }
 
     // Update is called once per frame
