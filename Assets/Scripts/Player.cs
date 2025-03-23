@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public GameObject inventory_obj;
+    public GameObject pauseMenu;
     Inventory inventory;
     Pickup pickup;
     bool foundPickup = false;
@@ -11,7 +11,10 @@ public class Player : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        inventory = inventory_obj.GetComponent<Inventory>();
+        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+        pauseMenu.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -31,20 +34,24 @@ public class Player : MonoBehaviour
 
     void ProcessInput()
     {
-        //bring up inventory
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if(Input.GetKeyDown(KeyCode.Tab))
         {
-            if (!inventory.gameObject.activeSelf)
-            {
-                inventory.Show();
 
+            if (pauseMenu.activeSelf)
+            {
+                Time.timeScale = 1.0f;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                pauseMenu.GetComponent<PauseMenu>().Hide();
             }
             else
             {
-                inventory.Hide();
+                Time.timeScale = 0.0f;
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
+                pauseMenu.GetComponent<PauseMenu>().Show();
             }
         }
-
         //grab a pickup
         if(foundPickup)
         {

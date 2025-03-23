@@ -15,13 +15,12 @@ public class Inventory : MonoBehaviour
         items = new Pickup[4];
         corndog = Resources.Load<Sprite>("Corndog");
         button_0 = GameObject.Find("Button (0)");
-        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public bool CheckInventory()
