@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
                 direction.Normalize();
 
                 Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerRotation*100 * Time.deltaTime);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerRotation * 100 * Time.deltaTime);
             }
 
 

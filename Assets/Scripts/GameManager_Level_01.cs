@@ -1,11 +1,7 @@
-using TMPro;
 using UnityEngine;
 
 public class GameManager_Level_01 : MonoBehaviour
 {
-    GameObject interactObject;
-    TextMeshProUGUI interactText;
-
     public GameObject Wall;
     public GameObject Wall_Door;
 
@@ -25,9 +21,6 @@ public class GameManager_Level_01 : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        interactObject = GameObject.Find("Interact");
-        interactText = GameObject.Find("InteractText").GetComponent<TextMeshProUGUI>();
-        interactObject.SetActive(false);
 
         Wall_Door.SetActive(true);
         Wall.SetActive(false);
@@ -54,18 +47,6 @@ public class GameManager_Level_01 : MonoBehaviour
     {
         Wall.SetActive(false);
         Wall_Door.SetActive(true);
-    }
-
-    public void ShowInteractText(string newText)
-    {
-        interactObject.SetActive(true);
-        interactText.text = newText;
-    }
-
-    public void HideInteractText()
-    {
-        interactObject.SetActive(false);
-        interactText.text = "";
     }
 
 }

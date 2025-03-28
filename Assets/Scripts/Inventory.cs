@@ -3,18 +3,21 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
+    public GameObject[] buttons;
     Pickup[] items;
+
     int num_items = 0;
 
     Sprite corndog;
-    GameObject button_0;
+    Sprite tomato;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         items = new Pickup[4];
         corndog = Resources.Load<Sprite>("Corndog");
-        button_0 = GameObject.Find("Button (0)");
+        tomato = Resources.Load<Sprite>("Tomato");
+
     }
 
     // Update is called once per frame
@@ -30,10 +33,22 @@ public class Inventory : MonoBehaviour
 
     public void Add(Pickup newItem)
     {
-       if(num_items < items.Length)
+        Debug.Log(newItem.Name);
+
+       if(num_items <= items.Length)
         {
-            items[num_items++] = newItem;
-            button_0.GetComponent<Image>().sprite = corndog;
+            switch(newItem.Name)
+            {
+                case "corndog":
+                    items[num_items] = newItem;
+                    buttons[num_items++].GetComponent<Image>().sprite = corndog;
+                    break;
+                case "tomato":
+                    items[num_items] = newItem;
+                    buttons[num_items++].GetComponent<Image>().sprite = tomato;
+                    break;
+
+            }
         }
     }
 
@@ -41,7 +56,8 @@ public class Inventory : MonoBehaviour
     {
         if(num_items > 0)
         {
-            items[num_items--] = null;
+            items[--num_items] = null;
+            buttons[num_items].GetComponent<Image>().sprite = null;
         }
     }
 

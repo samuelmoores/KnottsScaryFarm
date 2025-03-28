@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour
     public int currentScene;
 
     Animator animator;
+    Rigidbody rb;
 
     float health = 1.0f;
     bool dead = false;
@@ -64,7 +65,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Damage"))
+        if(collision.gameObject.CompareTag("Tomato"))
         {
             TakeDamage(0.3f);
             Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
@@ -76,4 +77,6 @@ public class PlayerHealth : MonoBehaviour
             }
         }
     }
+
+   
 }

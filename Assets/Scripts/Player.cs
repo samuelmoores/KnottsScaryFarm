@@ -8,11 +8,15 @@ public class Player : MonoBehaviour
     bool foundPickup = false;
     bool isInteracting = false;
 
+    private void Awake()
+    {
+        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+        
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
-        pauseMenu.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -73,6 +77,7 @@ public class Player : MonoBehaviour
     {
         if(other.CompareTag("Pickup"))
         {
+            Debug.Log("Player found pickup");
             foundPickup = true;
             pickup = other.gameObject.GetComponent<Pickup>();
         }

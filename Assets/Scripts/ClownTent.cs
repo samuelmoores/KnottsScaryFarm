@@ -46,7 +46,6 @@ public class ClownTent : MonoBehaviour
             Rigidbody rb = tomato_instance.GetComponent<Rigidbody>();
             rb.AddForce((throwTarget.position - hand.position).normalized * throwSpeed, ForceMode.Impulse);
             rb.angularVelocity = tomato_instance.transform.right * -15.0f;
-            Destroy(tomato_instance, 15.0f);
         }
     }
 }

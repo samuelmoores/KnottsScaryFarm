@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 80d395b8f11a6664facf1aecce1138e9, type: 3}
       propertyPath: m_TagString
-      value: Damage
+      value: Pickup
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -82,6 +82,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 80d395b8f11a6664facf1aecce1138e9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9049178220167353217}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 80d395b8f11a6664facf1aecce1138e9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4219619123219926265}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 80d395b8f11a6664facf1aecce1138e9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7381708950588539935}
   m_SourcePrefab: {fileID: 100100000, guid: 80d395b8f11a6664facf1aecce1138e9, type: 3}
 --- !u!1 &2453442126911007876 stripped
 GameObject:
@@ -137,3 +143,39 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &-4219619123219926265
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2453442126911007876}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.009
+  m_Center: {x: 0, y: 0, z: 0.0007132735}
+--- !u!114 &7381708950588539935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2453442126911007876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3909ad4638c1ac0448aba0aaaa675f96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Tomato
+  rotationSpeed: 0
+  PickupSound: {fileID: 8300000, guid: 7b4b2aaf60c0669459cde89b2fa704d8, type: 3}

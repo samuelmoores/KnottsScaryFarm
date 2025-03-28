@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
+    public string Name;
     public float rotationSpeed;
     public AudioClip PickupSound;
 
@@ -40,7 +41,7 @@ public class Pickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            gm.ShowInteractText(gameObject.tag);
+            gm.ShowInteractText(Name);
         }
     }
 
