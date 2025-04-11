@@ -42,12 +42,8 @@ public class Inventory : MonoBehaviour
     {
        if(num_items <= items.Length)
         {
-
-            Debug.Log(num_items);
-
             items[num_items] = newItem;
-            //gameObjects[num_items] = newItem.gameObject;
-
+            gameObjects.Add(newItem.gameObject);
 
             switch (newItem.Name)
             {
@@ -59,6 +55,7 @@ public class Inventory : MonoBehaviour
                     break;
 
             }
+            Debug.Log(num_items);
         }
     }
 
@@ -73,8 +70,7 @@ public class Inventory : MonoBehaviour
         {
             items[--num_items] = null;
             buttons[num_items].GetComponent<Image>().sprite = null;
-            gameObjects[num_items] = null;
-
+            Destroy(gameObjects[num_items]);
         }
     }
 

@@ -36,6 +36,7 @@ public class Clown : MonoBehaviour
                 if(inventory.CheckInventory())
                 {
                     AcceptGift();
+                    inventory.Drop();
                 }
                 else
                 {
