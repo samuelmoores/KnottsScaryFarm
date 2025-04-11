@@ -7,7 +7,9 @@ public class Pickup : MonoBehaviour
     public float rotationSpeed;
     public AudioClip PickupSound;
 
+    GameObject playerHand;
     GameManager gm;
+    Rigidbody rb;
 
     bool pickedUp;
 
@@ -15,6 +17,7 @@ public class Pickup : MonoBehaviour
     void Start()
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        playerHand = GameObject.Find("Player").GetComponent<Player>().handSocket;
     }
 
     // Update is called once per frame
@@ -33,15 +36,38 @@ public class Pickup : MonoBehaviour
             pickedUp = true;
             gm.HideInteractText();
             SoundManager.instance.PlaySound(PickupSound, transform, 0.5f);
-            Destroy(gameObject, PickupSound.length);
+            rotationSpeed = 0.0f;
+            transform.position = Vector3.zero;
+            if(rb)
+            {
+                rb.useGravity = false;
+                rb.gameObject.GetComponent<MeshCollider>().enabled = false;
+                transform.localScale = new Vector3(25, 25, 25);
+                GameObject.Find("Player").GetComponent<PlayerMovement>().hasWeapin = true;
+            }
+            transform.SetParent(playerHand.transform, false); 
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !pickedUp)
         {
-            gm.ShowInteractText(Name);
+            rb = gameObject.GetComponent<Rigidbody>();
+
+            if(rb)
+            {
+                if(rb.linearVelocity == Vector3.zero)
+                {
+                    gm.ShowInteractText(Name);
+                }
+            }
+            else
+            {
+                gm.ShowInteractText(Name);
+
+            }
+
         }
     }
 

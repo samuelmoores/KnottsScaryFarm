@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
     int footstep = 0;
     float startingHeight;
+    bool aiming = false;
+    [HideInInspector] public bool hasWeapin = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,7 +39,23 @@ public class PlayerMovement : MonoBehaviour
             Vector3 direction = new Vector3(horizontal, 0.0f, vertical);
             direction.Normalize();
 
-            if(direction != Vector3.zero)
+            if(hasWeapin)
+            {
+                aiming = Input.GetKey(KeyCode.Mouse1);
+                animator.SetBool("aiming", aiming);
+            }
+
+            if(aiming)
+            {
+                GameObject cam = GameObject.Find("Main Camera");
+                Vector3 playerRotation = transform.eulerAngles;
+                float cameraYRotation = cam.transform.eulerAngles.y;
+                transform.rotation = Quaternion.Euler(playerRotation.x, cameraYRotation, playerRotation.z);
+                direction = cam.transform.forward * vertical + cam.transform.right * horizontal;
+                direction.Normalize();
+            }
+
+            if(direction != Vector3.zero && !aiming)
             {
                 direction = Quaternion.AngleAxis(cam.transform.rotation.eulerAngles.y, Vector3.up) * direction;
                 direction.Normalize();
@@ -67,5 +85,10 @@ public class PlayerMovement : MonoBehaviour
         {
             footstep = 0;
         }
+    }
+
+    public bool IsAiming()
+    {
+        return aiming;
     }
 }

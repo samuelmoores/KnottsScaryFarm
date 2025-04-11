@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,8 +7,10 @@ public class Inventory : MonoBehaviour
 {
     public GameObject[] buttons;
     Pickup[] items;
+    List<GameObject> gameObjects = new List<GameObject>(4);
 
     int num_items = 0;
+    int selectedItem = 0;
 
     Sprite corndog;
     Sprite tomato;
@@ -17,6 +21,8 @@ public class Inventory : MonoBehaviour
         items = new Pickup[4];
         corndog = Resources.Load<Sprite>("Corndog");
         tomato = Resources.Load<Sprite>("Tomato");
+
+        Debug.Log(gameObjects);
 
     }
 
@@ -33,23 +39,31 @@ public class Inventory : MonoBehaviour
 
     public void Add(Pickup newItem)
     {
-        Debug.Log(newItem.Name);
-
        if(num_items <= items.Length)
         {
-            switch(newItem.Name)
+
+            Debug.Log(num_items);
+
+            items[num_items] = newItem;
+            gameObjects[num_items] = newItem.gameObject;
+
+
+            switch (newItem.Name)
             {
                 case "corndog":
-                    items[num_items] = newItem;
                     buttons[num_items++].GetComponent<Image>().sprite = corndog;
                     break;
                 case "tomato":
-                    items[num_items] = newItem;
                     buttons[num_items++].GetComponent<Image>().sprite = tomato;
                     break;
 
             }
         }
+    }
+
+    public List<GameObject> GetGameObject()
+    {
+        return gameObjects;
     }
 
     public void Drop()
@@ -58,7 +72,14 @@ public class Inventory : MonoBehaviour
         {
             items[--num_items] = null;
             buttons[num_items].GetComponent<Image>().sprite = null;
+            gameObjects[num_items] = null;
+
         }
+    }
+
+    public void EquipItem(int itemToEquip)
+    {
+        selectedItem = itemToEquip;
     }
 
     public void Show()

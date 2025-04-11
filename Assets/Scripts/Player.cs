@@ -3,6 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public GameObject pauseMenu;
+    public GameObject handSocket;
     Inventory inventory;
     Pickup pickup;
     bool foundPickup = false;
@@ -77,7 +78,6 @@ public class Player : MonoBehaviour
     {
         if(other.CompareTag("Pickup"))
         {
-            Debug.Log("Player found pickup");
             foundPickup = true;
             pickup = other.gameObject.GetComponent<Pickup>();
         }

@@ -13,6 +13,7 @@ public class CameraCollider : MonoBehaviour
     RaycastHit hit;
     public float dollyDirAdjusted;
     public float distance;
+    public float aimDistance;
 
     void Awake()
     {
@@ -30,16 +31,31 @@ public class CameraCollider : MonoBehaviour
 
         if (Physics.Linecast(transform.parent.position, desiredCameraPos, out hit) && hit.transform.gameObject.layer != 1)
         {
-            distance = Mathf.Clamp((hit.distance * 0.9f), minDistance, maxDistance);
+            if(Input.GetKey(KeyCode.Mouse1) && player.GetComponent<PlayerMovement>().hasWeapin)
+            {
+                distance = Mathf.Clamp((hit.distance * 0.9f), minDistance, 2.0f);
+            }
+            else
+            {
+                distance = Mathf.Clamp((hit.distance * 0.9f), minDistance, maxDistance);
+            }
             
         }
         else
         {
-            distance = maxDistance;
+            if (Input.GetKey(KeyCode.Mouse1) && player.GetComponent<PlayerMovement>().hasWeapin)
+            {
+                distance = aimDistance;
+            }
+            else
+            {
+                distance = maxDistance;
+            }
         }
 
         transform.localPosition = Vector3.Lerp(transform.localPosition, dollyDir * distance, Time.deltaTime * smooth);
         transform.LookAt(cameraTarget.transform);
+
     }
 
 }
