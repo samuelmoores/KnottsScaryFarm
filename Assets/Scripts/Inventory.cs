@@ -7,7 +7,7 @@ public class Inventory : MonoBehaviour
 {
     public GameObject[] buttons;
     Pickup[] items;
-    List<GameObject> gameObjects = new List<GameObject>(4);
+    List<GameObject> gameObjects;
 
     int num_items = 0;
     int selectedItem = 0;
@@ -22,7 +22,8 @@ public class Inventory : MonoBehaviour
         corndog = Resources.Load<Sprite>("Corndog");
         tomato = Resources.Load<Sprite>("Tomato");
 
-        Debug.Log(gameObjects);
+        gameObjects = new List<GameObject>(4);
+
 
     }
 
@@ -45,7 +46,7 @@ public class Inventory : MonoBehaviour
             Debug.Log(num_items);
 
             items[num_items] = newItem;
-            gameObjects[num_items] = newItem.gameObject;
+            //gameObjects[num_items] = newItem.gameObject;
 
 
             switch (newItem.Name)
