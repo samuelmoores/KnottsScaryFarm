@@ -16,6 +16,7 @@ public class Pickup : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //hello sam
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerHand = GameObject.Find("Player").GetComponent<Player>().handSocket;
     }
