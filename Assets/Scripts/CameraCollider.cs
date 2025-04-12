@@ -31,14 +31,19 @@ public class CameraCollider : MonoBehaviour
         //desiredCameraPos = transform.parent.TransformPoint(dollyDir * maxDistance);
         desiredCameraPos = transform.position;
 
-        if (Physics.Linecast(transform.parent.position, desiredCameraPos + Vector3.right * colliderWidth, out hit) && hit.transform.gameObject.layer != 1)
+        Debug.DrawLine(player.transform.position, desiredCameraPos + transform.right * colliderWidth, Color.red);
+        Debug.DrawLine(player.transform.position, desiredCameraPos + -transform.right * colliderWidth, Color.blue);
+
+
+        if (Physics.Linecast(transform.parent.position, desiredCameraPos + transform.right * colliderWidth, out hit) && hit.transform.gameObject.layer != 1)
         {
             distance = Mathf.Clamp((hit.distance * 0.9f), minDistance, maxDistance);
 
         }
-        else if(Physics.Linecast(transform.parent.position, desiredCameraPos + Vector3.right * -colliderWidth, out hit) && hit.transform.gameObject.layer != 1)
+        else if(Physics.Linecast(transform.parent.position, desiredCameraPos + transform.right * -colliderWidth, out hit) && hit.transform.gameObject.layer != 1)
         {
             distance = Mathf.Clamp((hit.distance * 0.9f), minDistance, maxDistance);
+
         }
         else
         {

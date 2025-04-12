@@ -77,8 +77,19 @@ public class PlayerMovement : MonoBehaviour
 
             velocity.y += Physics.gravity.y * Time.deltaTime * 2.0f;
 
+            if(Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                playerSpeed *= 2.0f; 
+            }
+
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                playerSpeed /= 2.0f;
+            }
+
             controller.Move((direction * playerSpeed + velocity) * Time.deltaTime);
             animator.SetBool("running", direction != Vector3.zero);
+            animator.SetBool("sprint", Input.GetKey(KeyCode.LeftShift));
         }
     }
 
@@ -94,5 +105,10 @@ public class PlayerMovement : MonoBehaviour
     public bool IsAiming()
     {
         return aiming;
+    }
+
+    public float GetPlayerSpeed()
+    {
+        return playerSpeed;
     }
 }

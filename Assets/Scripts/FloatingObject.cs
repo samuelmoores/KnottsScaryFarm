@@ -3,6 +3,7 @@ using UnityEngine;
 public class FloatingObject : MonoBehaviour
 {
     GameObject player;
+    PlayerMovement playerMovement;
     Rigidbody rb;
     float x;
     float y;
@@ -14,6 +15,7 @@ public class FloatingObject : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
+        playerMovement = player.GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody>();
 
         x = Random.Range(1, 10);
@@ -30,10 +32,18 @@ public class FloatingObject : MonoBehaviour
     {
         float distance = Vector3.Distance(transform.position, player.transform.position);
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && distance <= 10.0f)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && distance <= 10.0f)
         {
             rb.angularVelocity = Vector3.zero;
             rb.AddExplosionForce(100.0f, player.transform.position, 10.0f);
+        }
+
+        if(playerMovement.GetPlayerSpeed() > 0.0f)
+        {
+            if(Input.GetKey(KeyCode.LeftShift))
+            {
+                rb.AddForce((player.transform.position - transform.position).normalized);
+            }
         }
     }
 
@@ -41,7 +51,7 @@ public class FloatingObject : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            rb.AddForce(player.transform.forward * 220.0f);
+            rb.AddForce(player.transform.forward * 52.0f * 4);
         }
     }
 }
