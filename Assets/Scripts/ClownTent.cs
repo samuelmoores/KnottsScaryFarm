@@ -6,6 +6,8 @@ public class ClownTent : MonoBehaviour
     public Transform hand;
     public Transform throwTarget;
     public float throwSpeed = 30.0f;
+    float health = 1.0f;
+    bool dead = false;
 
     GameObject tomato_instance;
     GameObject player;
@@ -25,16 +27,21 @@ public class ClownTent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(player.transform);
-
-        distance_to_player = Vector3.Distance(player.transform.position, transform.position);
-
-        throwTimer -= Time.deltaTime;
-
-        if(throwTimer <= 0.0f && distance_to_player < throw_distance)
+        if(!dead)
         {
-            animator.SetTrigger("throw");
-            throwTimer = Random.Range(3.0f, 7.0f);
+            transform.LookAt(player.transform, Vector3.up);
+            transform.rotation = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f);
+
+
+            distance_to_player = Vector3.Distance(player.transform.position, transform.position);
+
+            throwTimer -= Time.deltaTime;
+
+            if(throwTimer <= 0.0f && distance_to_player < throw_distance)
+            {
+                animator.SetTrigger("throw");
+                throwTimer = Random.Range(3.0f, 7.0f);
+            }
         }
     }
 
@@ -46,6 +53,23 @@ public class ClownTent : MonoBehaviour
             Rigidbody rb = tomato_instance.GetComponent<Rigidbody>();
             rb.AddForce((throwTarget.position - hand.position).normalized * throwSpeed, ForceMode.Impulse);
             rb.angularVelocity = tomato_instance.transform.right * -15.0f;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject);
+
+        if(collision.gameObject.CompareTag("Pickup") && !dead)
+        {
+            animator.SetTrigger("damage");
+            health -= 0.6f;
+
+            if (health <= 0.0f)
+            {
+                dead = true;
+                animator.SetBool("dead", true);
+            }
         }
     }
 }

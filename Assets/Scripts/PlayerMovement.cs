@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
         cam = GameObject.Find("Main Camera");
         startingHeight = transform.position.y;
         health = GetComponent<PlayerHealth>();
-        animator.SetInteger("direction", -1);
     }
 
     // Update is called once per frame
@@ -54,8 +53,6 @@ public class PlayerMovement : MonoBehaviour
                 transform.rotation = Quaternion.Euler(playerRotation.x, cameraYRotation, playerRotation.z);
                 direction = cam.transform.forward * vertical + cam.transform.right * horizontal;
                 direction.Normalize();
-
-                Debug.Log("horz: " + horizontal + "||" + " vert: " + vertical);
 
                 animator.SetFloat("directionX", horizontal);
                 animator.SetFloat("directionZ", vertical);

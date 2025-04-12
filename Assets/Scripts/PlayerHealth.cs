@@ -67,8 +67,6 @@ public class PlayerHealth : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Pickup"))
         {
-            Debug.Log(collision.gameObject.GetComponent<Pickup>().Name);
-
             if(collision.gameObject.GetComponent<Pickup>().Name == "Tomato")
             {
                 TakeDamage(0.3f);

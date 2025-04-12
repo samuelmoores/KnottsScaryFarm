@@ -63,6 +63,21 @@ public class PlayerAttack : MonoBehaviour
             
     }
 
-    
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Pickup"))
+        {
+            if (collision.gameObject.GetComponent<Pickup>().Name == "Tomato")
+            {
+                coolDown = -1;
+                attacking = false;
+                playerMovement.playerSpeed = 4.0f;
+                playerMovement.playerRotation = 7.0f;
+            }
+
+        }
+    }
+
+
 
 }
