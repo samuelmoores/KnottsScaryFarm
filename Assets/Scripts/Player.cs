@@ -64,14 +64,13 @@ public class Player : MonoBehaviour
             {
                 inventory.Add(pickup);
                 pickup.Take();
-                foundPickup = false; 
+                foundPickup = false;
             }
         }
 
         //interacting
         isInteracting = Input.GetKeyDown(KeyCode.E);
 
-       
     }
 
     private void OnTriggerEnter(Collider other)

@@ -43,7 +43,6 @@ public class Pickup : MonoBehaviour
             {
                 rb.useGravity = false;
                 rb.gameObject.GetComponent<MeshCollider>().enabled = false;
-                transform.localScale = new Vector3(25, 25, 25);
                 GameObject.Find("Player").GetComponent<PlayerMovement>().hasWeapin = true;
             }
             transform.SetParent(playerHand.transform, false); 
@@ -78,5 +77,10 @@ public class Pickup : MonoBehaviour
         {
             gm.HideInteractText();
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        pickedUp = false;
     }
 }

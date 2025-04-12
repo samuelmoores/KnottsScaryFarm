@@ -31,15 +31,7 @@ public class CameraCollider : MonoBehaviour
 
         if (Physics.Linecast(transform.parent.position, desiredCameraPos, out hit) && hit.transform.gameObject.layer != 1)
         {
-            if(Input.GetKey(KeyCode.Mouse1) && player.GetComponent<PlayerMovement>().hasWeapin)
-            {
-                distance = Mathf.Clamp((hit.distance * 0.9f), minDistance, 2.0f);
-            }
-            else
-            {
-                distance = Mathf.Clamp((hit.distance * 0.9f), minDistance, maxDistance);
-            }
-            
+            distance = Mathf.Clamp((hit.distance * 0.9f), minDistance, maxDistance);
         }
         else
         {

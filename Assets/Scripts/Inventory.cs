@@ -47,15 +47,15 @@ public class Inventory : MonoBehaviour
 
             switch (newItem.Name)
             {
-                case "corndog":
+                case "Corndog":
                     buttons[num_items++].GetComponent<Image>().sprite = corndog;
                     break;
-                case "tomato":
+                case "Tomato":
                     buttons[num_items++].GetComponent<Image>().sprite = tomato;
+                    Debug.Log("TOMATO");
                     break;
 
             }
-            Debug.Log(num_items);
         }
     }
 
@@ -71,6 +71,21 @@ public class Inventory : MonoBehaviour
             items[--num_items] = null;
             buttons[num_items].GetComponent<Image>().sprite = null;
             Destroy(gameObjects[num_items]);
+        }
+    }
+
+    public void Use()
+    {
+        Debug.Log(num_items);
+        if (num_items > 0)
+        {
+            items[0] = null;
+            buttons[0].GetComponent<Image>().sprite = null;
+            gameObjects[0].transform.parent = null;
+            gameObjects.Remove(gameObjects[0]);
+            num_items--;
+            items[num_items] = null;
+
         }
     }
 

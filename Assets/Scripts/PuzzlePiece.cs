@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PuzzlePiece : MonoBehaviour
 {
+    GameObject player;
+
     Vector3 startingPosition;
     Rigidbody rb;
     float x;
@@ -22,12 +24,16 @@ public class PuzzlePiece : MonoBehaviour
         y = Random.Range(1, 3);
         z = Random.Range(1, 3);
 
+        player = GameObject.Find("Player");
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        float distance = Vector3.Distance(player.transform.position, gameObject.transform.position);
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) && distance < 15.0f)
         {
             switch(direction)
             {

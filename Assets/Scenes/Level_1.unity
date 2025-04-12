@@ -325,6 +325,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6423619593323944966, guid: 8755929c9a272ca40a3bd18fb58a4e75, type: 3}
+      propertyPath: aimDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8930842437400792516, guid: 8755929c9a272ca40a3bd18fb58a4e75, type: 3}
       propertyPath: clampAngle
       value: 80

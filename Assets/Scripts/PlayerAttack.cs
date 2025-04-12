@@ -30,6 +30,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 animator.SetTrigger("throw");
                 playerMovement.playerSpeed = 0.0f;
+                playerMovement.playerRotation = 0.0f;
                 attacking = true;
                 coolDown = ThrowAnimation.length - 0.2f;
             }
@@ -43,6 +44,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 attacking = false;
                 playerMovement.playerSpeed = 4.0f;
+                playerMovement.playerRotation = 7.0f;
 
             }
         }
@@ -52,16 +54,12 @@ public class PlayerAttack : MonoBehaviour
     {
         List<GameObject> gameObjects = inventory.GetGameObject();
 
-        Debug.Log(gameObjects.Count);
-
-        gameObjects[0].transform.parent = null;
-
         Rigidbody rb = gameObjects[0].GetComponent<Rigidbody>();
-        rb.AddForce(gameObject.transform.forward * 10.0f, ForceMode.Impulse);
+        rb.AddForce(gameObject.transform.forward * 30.0f, ForceMode.Impulse);
         rb.useGravity = true;
         gameObjects[0].GetComponent<MeshCollider>().enabled = true;
 
-        inventory.Drop();
+        inventory.Use();
             
     }
 

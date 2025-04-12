@@ -65,16 +65,22 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Tomato"))
+        if(collision.gameObject.CompareTag("Pickup"))
         {
-            TakeDamage(0.3f);
-            Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
-            rb.linearVelocity /= 2;
+            Debug.Log(collision.gameObject.GetComponent<Pickup>().Name);
 
-            if(!dead)
+            if(collision.gameObject.GetComponent<Pickup>().Name == "Tomato")
             {
-                animator.SetTrigger("damage");
+                TakeDamage(0.3f);
+                Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
+                rb.linearVelocity /= 2;
+
+                if(!dead)
+                {
+                    animator.SetTrigger("damage");
+                }
             }
+
         }
     }
 
