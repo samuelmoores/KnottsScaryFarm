@@ -35,7 +35,8 @@ public class FloatingObject : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse1) && distance <= 10.0f)
         {
             rb.angularVelocity = Vector3.zero;
-            rb.AddExplosionForce(100.0f, player.transform.position, 10.0f);
+            //rb.AddExplosionForce(100.0f, player.transform.position, 10.0f);
+            rb.AddForce(Vector3.up * 100.0f);
         }
 
         if(playerMovement.GetPlayerSpeed() > 0.0f)
