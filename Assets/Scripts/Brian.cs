@@ -62,11 +62,14 @@ public class Brian : MonoBehaviour
                 if (closestCubeDistance > 1.0f)
                 {
                     Vector3 direction = (cubeToChase.transform.position - transform.position).normalized;
-                    Vector3 moveDirection = new Vector3(direction.x, 0.0f, direction.z);
                     Rigidbody rb = cubeToChase.GetComponent<Rigidbody>();
+
+                    Vector3 moveDirection = new Vector3(direction.x, 0.0f, direction.z);
                     lv = rb.linearVelocity.magnitude;
 
-                    if(stopCooldown < 0.0f && lv > 0.0f)
+                    Debug.Log(lv);
+
+                    if(stopCooldown < 0.0f && lv > 0.1f)
                     {
                         controller.Move(moveDirection * Time.deltaTime * walkSpeed);
                         animator.SetBool("walk", true);
@@ -79,6 +82,7 @@ public class Brian : MonoBehaviour
                     if (lv < 2.0f && closestCubeDistance < 1.1f && stopCooldown < 0.0f)
                     {
                         stopCooldown = 5.0f;
+                        cubeToChase.GetComponent<FloatingObject>().InitializeTheGrowth();
                     }
 
                     if(stopCooldown > 0.0f)
