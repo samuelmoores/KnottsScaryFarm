@@ -22,8 +22,8 @@ public class GameManager_Level_01 : MonoBehaviour
     void Start()
     {
 
-        Wall_Door.SetActive(false);
-        Wall.SetActive(true);
+        Wall_Door.SetActive(true);
+        Wall.SetActive(false);
 
     }
 

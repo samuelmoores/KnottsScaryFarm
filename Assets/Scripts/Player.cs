@@ -6,12 +6,14 @@ public class Player : MonoBehaviour
     public GameObject handSocket;
     Inventory inventory;
     Pickup pickup;
+    PlayerAttack playerAttack;
     bool foundPickup = false;
     bool isInteracting = false;
 
     private void Awake()
     {
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+        playerAttack = GameObject.Find("Player").GetComponent<PlayerAttack>();
         
     }
 
@@ -65,6 +67,7 @@ public class Player : MonoBehaviour
                 inventory.Add(pickup);
                 pickup.Take();
                 foundPickup = false;
+                playerAttack.EquipThrowable();
             }
         }
 

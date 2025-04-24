@@ -43,7 +43,7 @@ public class Pickup : MonoBehaviour
             {
                 rb.useGravity = false;
                 rb.gameObject.GetComponent<MeshCollider>().enabled = false;
-                GameObject.Find("Player").GetComponent<PlayerMovement>().hasWeapin = true;
+                GameObject.Find("Player").GetComponent<PlayerAttack>().EquipThrowable();
             }
             transform.SetParent(playerHand.transform, false); 
         }

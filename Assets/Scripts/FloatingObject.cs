@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class FloatingObject : MonoBehaviour
 {
+    public AudioClip forceSound;
+    public AudioClip initSound;
+    public Transform playerTarget;
+
     GameObject player;
     GameObject brian;
     PlayerMovement playerMovement;
@@ -14,7 +18,6 @@ public class FloatingObject : MonoBehaviour
     float y_scale;
     float z_scale;
 
-    float speed;
     public bool initiated = false;
 
 
@@ -30,7 +33,6 @@ public class FloatingObject : MonoBehaviour
         x = Random.Range(1, 10);
         y = Random.Range(1, 10);
         z = Random.Range(1, 10);
-        speed = Random.Range(2, 7);
 
         rb.angularVelocity = new Vector3(x, y, z);
 
@@ -46,23 +48,28 @@ public class FloatingObject : MonoBehaviour
     {
         float distance = Vector3.Distance(transform.position, player.transform.position);
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && distance <= 10.0f)
+        if (Input.GetKeyDown(KeyCode.Q) && distance <= 10.0f)
         {
             rb.angularVelocity = Vector3.zero;
-            rb.AddExplosionForce(100.0f, player.transform.position, 10.0f);
+            rb.AddExplosionForce(1000.0f, player.transform.position, 10.0f);
         }
 
         if(playerMovement.GetPlayerSpeed() > 0.0f)
         {
+            if(Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                SoundManager.instance.PlaySound(forceSound, transform);
+            }
+
             if(Input.GetKey(KeyCode.LeftShift))
             {
-                rb.AddForce((player.transform.position - transform.position).normalized);
+                rb.AddForce((playerTarget.position - transform.position).normalized);
             }
         }
 
         if(initiated)
         {
-            rb.AddForce(transform.position - brian.transform.position);
+            rb.AddForce((transform.position - brian.transform.position));
 
             x_scale += Time.deltaTime * 2.0f;
             y_scale += Time.deltaTime * 2.0f;
@@ -79,6 +86,7 @@ public class FloatingObject : MonoBehaviour
 
     public void InitializeTheGrowth()
     {
+        SoundManager.instance.PlaySound(initSound, transform);
         initiated = true;
     }
 

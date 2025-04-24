@@ -51,8 +51,8 @@ public class Inventory : MonoBehaviour
                     break;
                 case "Tomato":
                     buttons[num_items++].GetComponent<Image>().sprite = tomato;
-                    Debug.Log("TOMATO");
                     break;
+                //cotton candy heal TODO: Gromit
 
             }
         }
@@ -75,7 +75,6 @@ public class Inventory : MonoBehaviour
 
     public void Use()
     {
-        Debug.Log(num_items);
         if (num_items > 0)
         {
             items[0] = null;

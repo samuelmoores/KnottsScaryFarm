@@ -11,6 +11,7 @@ public class PlayerAttack : MonoBehaviour
 
     bool attacking = false;
     float coolDown = 0.0f;
+    bool throwableEquiped = false;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -52,15 +53,28 @@ public class PlayerAttack : MonoBehaviour
 
     public void Throw()
     {
-        List<GameObject> gameObjects = inventory.GetGameObject();
+        if(throwableEquiped)
+        {
+            List<GameObject> gameObjects = inventory.GetGameObject();
 
-        Rigidbody rb = gameObjects[0].GetComponent<Rigidbody>();
-        rb.AddForce(gameObject.transform.forward * 30.0f, ForceMode.Impulse);
-        rb.useGravity = true;
-        gameObjects[0].GetComponent<MeshCollider>().enabled = true;
+            Rigidbody rb = gameObjects[0].GetComponent<Rigidbody>();
+            rb.AddForce(gameObject.transform.forward * 30.0f, ForceMode.Impulse);
+            rb.useGravity = true;
+            gameObjects[0].GetComponent<MeshCollider>().enabled = true;
+            throwableEquiped = false;
 
-        inventory.Use();
-            
+            inventory.Use();
+        }
+    }
+
+    public void EquipThrowable()
+    {
+        throwableEquiped = true;
+    }
+
+    public bool ThrowableEquiped()
+    {
+        return throwableEquiped;
     }
 
     private void OnCollisionEnter(Collision collision)

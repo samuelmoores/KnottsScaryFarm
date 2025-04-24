@@ -47,7 +47,7 @@ public class CameraCollider : MonoBehaviour
         }
         else
         {
-            if (Input.GetKey(KeyCode.Mouse1) && player.GetComponent<PlayerMovement>().hasWeapin)
+            if (Input.GetKey(KeyCode.Mouse1) && player.GetComponent<PlayerAttack>().ThrowableEquiped())
             {
                 distance = aimDistance;
             }

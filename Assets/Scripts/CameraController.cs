@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         float inputX = Input.GetAxis("Mouse X");
-        float inputZ = Input.GetAxis("Mouse Y");
+        float inputZ = -Input.GetAxis("Mouse Y");
 
         rotY += inputX * inputSensitivity * Time.deltaTime;
         rotX += inputZ * invertCamera*inputSensitivity * Time.deltaTime;

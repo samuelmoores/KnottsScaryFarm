@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -5,28 +6,29 @@ public class PlayerMovement : MonoBehaviour
 {
     public float playerSpeed;
     public float playerRotation;
+    public AnimationClip jumpAnimation;
     public AudioClip[] footstepSound;
-    public float footstepVolume = 1.0f;
+    public float footstepVolume;
     public float jumpHeight;
 
     CharacterController controller;
     Animator animator;
     GameObject cam;
     PlayerHealth health;
+    PlayerAttack playerAttack;
     Vector3 velocity;
-    int footstep = 0;
-    float startingHeight;
     bool aiming = false;
-    [HideInInspector] public bool hasWeapin = false;
+    float jumpCooldown = -1.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-        cam = GameObject.Find("Main Camera");
-        startingHeight = transform.position.y;
         health = GetComponent<PlayerHealth>();
+        playerAttack = GetComponent<PlayerAttack>();
+        
+        cam = GameObject.Find("Main Camera");
     }
 
     // Update is called once per frame
@@ -39,13 +41,16 @@ public class PlayerMovement : MonoBehaviour
             Vector3 direction = new Vector3(horizontal, 0.0f, vertical);
             direction.Normalize();
 
-            if(hasWeapin)
+            if(playerAttack.ThrowableEquiped())
             {
                 aiming = Input.GetKey(KeyCode.Mouse1);
-                animator.SetBool("aiming", aiming);
+            }
+            else
+            {
+                aiming = false;
             }
 
-            if(aiming)
+            if (aiming)
             {
                 GameObject cam = GameObject.Find("Main Camera");
                 Vector3 playerRotation = transform.eulerAngles;
@@ -56,7 +61,6 @@ public class PlayerMovement : MonoBehaviour
 
                 animator.SetFloat("directionX", horizontal);
                 animator.SetFloat("directionZ", vertical);
-
             }
 
             if (direction != Vector3.zero && !aiming)
@@ -69,14 +73,22 @@ public class PlayerMovement : MonoBehaviour
             }
 
 
-            if (Input.GetButtonDown("Jump") && controller.isGrounded)
+            if (Input.GetButtonDown("Jump") && controller.isGrounded && jumpCooldown < 0.0f)
             {
                 velocity.y = Mathf.Sqrt(jumpHeight * -Physics.gravity.y);
                 animator.SetTrigger("jump");
+                jumpCooldown = jumpAnimation.length;
+            }
+            else if(jumpCooldown > -1.0f)
+            {
+                jumpCooldown -= Time.deltaTime;
             }
 
-            velocity.y += Physics.gravity.y * Time.deltaTime * 2.0f;
-
+            if (velocity.y > -9.8)
+            {
+                velocity.y += Physics.gravity.y * Time.deltaTime * 2.0f;
+            }
+            
             if(Input.GetKeyDown(KeyCode.LeftShift))
             {
                 playerSpeed *= 2.0f; 
@@ -90,22 +102,20 @@ public class PlayerMovement : MonoBehaviour
             controller.Move((direction * playerSpeed + velocity) * Time.deltaTime);
             animator.SetBool("running", direction != Vector3.zero);
             animator.SetBool("sprint", Input.GetKey(KeyCode.LeftShift));
+            animator.SetBool("aiming", aiming);
         }
     }
 
     public void Footstep()
     {
-        SoundManager.instance.PlaySound(footstepSound[footstep++], gameObject.transform, footstepVolume);
-        if(footstep == 2)
-        {
-            footstep = 0;
-        }
+        SoundManager.instance.PlaySound(footstepSound[Random.Range(0, 8)], gameObject.transform, footstepVolume);
     }
 
     public bool IsAiming()
     {
         return aiming;
     }
+
 
     public float GetPlayerSpeed()
     {
