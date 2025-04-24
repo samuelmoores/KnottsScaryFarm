@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     public float playerRotation;
     public AnimationClip jumpAnimation;
     public AudioClip[] footstepSound;
+    public AudioClip[] grassFootstepSound;
+
     public float footstepVolume;
     public float jumpHeight;
 
@@ -19,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
     bool aiming = false;
     float jumpCooldown = -1.0f;
+    bool onGrass = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -89,12 +92,12 @@ public class PlayerMovement : MonoBehaviour
                 velocity.y += Physics.gravity.y * Time.deltaTime * 2.0f;
             }
             
-            if(Input.GetKeyDown(KeyCode.LeftShift))
+            if(Input.GetKeyDown(KeyCode.LeftShift) && playerSpeed == 4)
             {
                 playerSpeed *= 2.0f; 
             }
 
-            if (Input.GetKeyUp(KeyCode.LeftShift))
+            if (Input.GetKeyUp(KeyCode.LeftShift) && playerSpeed == 8)
             {
                 playerSpeed /= 2.0f;
             }
@@ -108,7 +111,14 @@ public class PlayerMovement : MonoBehaviour
 
     public void Footstep()
     {
-        SoundManager.instance.PlaySound(footstepSound[Random.Range(0, 8)], gameObject.transform, footstepVolume);
+        if(onGrass)
+        {
+            SoundManager.instance.PlaySound(grassFootstepSound[Random.Range(0, 8)], gameObject.transform, footstepVolume);
+        }
+        else
+        {
+            SoundManager.instance.PlaySound(footstepSound[Random.Range(0, 8)], gameObject.transform, footstepVolume);
+        }
     }
 
     public bool IsAiming()
@@ -120,5 +130,18 @@ public class PlayerMovement : MonoBehaviour
     public float GetPlayerSpeed()
     {
         return playerSpeed;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Grass"))
+        {
+            onGrass = true;
+        }
+
+        if(other.CompareTag("Tile"))
+        {
+            onGrass = false;
+        }
     }
 }

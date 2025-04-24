@@ -8,6 +8,8 @@ TagManager:
   - PuzzlePiece
   - Damage
   - Tomato
+  - Grass
+  - Tile
   layers:
   - Default
   - TransparentFX
