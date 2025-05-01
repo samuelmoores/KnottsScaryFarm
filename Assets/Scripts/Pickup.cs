@@ -36,7 +36,7 @@ public class Pickup : MonoBehaviour
         {
             pickedUp = true;
             gm.HideInteractText();
-            SoundManager.instance.PlaySound(PickupSound, transform, 0.5f);
+            SoundManager.instance.PlaySound(PickupSound, transform, 0.15f);
             rotationSpeed = 0.0f;
             transform.position = Vector3.zero;
             if(rb)

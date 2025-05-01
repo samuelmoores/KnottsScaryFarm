@@ -53,23 +53,26 @@ public class PlayerAttack : MonoBehaviour
 
     public void Throw()
     {
-        if(throwableEquiped)
-        {
-            List<GameObject> gameObjects = inventory.GetGameObject();
+        GameObject objectToThrow = inventory.Use();
 
-            Rigidbody rb = gameObjects[0].GetComponent<Rigidbody>();
+        if(objectToThrow != null)
+        {
+            objectToThrow.transform.parent = null;
+            Rigidbody rb = objectToThrow.GetComponent<Rigidbody>();
             rb.AddForce(gameObject.transform.forward * 30.0f, ForceMode.Impulse);
             rb.useGravity = true;
-            gameObjects[0].GetComponent<MeshCollider>().enabled = true;
-            throwableEquiped = false;
-
-            inventory.Use();
+            objectToThrow.GetComponent<MeshCollider>().enabled = true;
         }
     }
 
     public void EquipThrowable()
     {
         throwableEquiped = true;
+    }
+
+    public void UnequipThrowable()
+    {
+        throwableEquiped = false;
     }
 
     public bool ThrowableEquiped()
