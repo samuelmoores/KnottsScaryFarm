@@ -26,6 +26,7 @@ public class Inventory : MonoBehaviour
     Sprite corndog;
     Sprite tomato;
     Sprite cotton_candy;
+    Sprite coin;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -33,6 +34,8 @@ public class Inventory : MonoBehaviour
         corndog = Resources.Load<Sprite>("Corndog");
         tomato = Resources.Load<Sprite>("Tomato");
         cotton_candy = Resources.Load<Sprite>("CottonCandy");
+        coin = Resources.Load<Sprite>("Coin");
+
 
         item_0 = new GameObject[10];
         item_1 = new GameObject[10];
@@ -53,6 +56,7 @@ public class Inventory : MonoBehaviour
     {
         GameObject[] items_first = { item_0[0], item_1[0], item_2[0], item_3[0] };
         bool already_has_item = false;
+        bool foundAvailableSlot = false;
 
         for(int i = 0; i < 4; i++)
         {
@@ -60,13 +64,44 @@ public class Inventory : MonoBehaviour
             {
                 Pickup pickup = items_first[i].GetComponent<Pickup>();
 
+                //is the item being added already in the inventory?
                 if(pickup.Name == NewItem.Name)
                 {
                     already_has_item = true;
+                    selected_item = i;
+                    break;
                 }
+            }//if it's not, put it in first available slot
+            else if(!foundAvailableSlot && !already_has_item)
+            {
+                selected_item = i;
+                foundAvailableSlot = true;
             }
         }
 
+        //adds new image to inventory
+        if(!already_has_item)
+        {
+            num_items++;
+
+            switch(NewItem.Name)
+            {
+                case "Corndog":
+                    images[selected_item].GetComponent<Image>().sprite = corndog;
+                    break;
+                case "Tomato":
+                    images[selected_item].GetComponent<Image>().sprite = tomato;
+                    break;
+                case "CottonCandy":
+                    images[selected_item].GetComponent<Image>().sprite = cotton_candy;
+                    break;
+                case "Coin":
+                    images[selected_item].GetComponent<Image>().sprite = coin;
+                    break;
+            }
+        }
+
+        //add item to inventory
         switch(selected_item)
         {
             case 0:
@@ -96,32 +131,20 @@ public class Inventory : MonoBehaviour
                 }
                 break;
             case 3:
-                item_3_amount++;
-                Debug.Log(item_3[0]);
+                if (item_3_amount < 10)
+                {
+                    item_3[item_3_amount++] = NewItem.gameObject;
+
+                    numbers_text[3].gameObject.transform.parent.gameObject.SetActive(true);
+                    numbers_text[3].text = item_3_amount.ToString();
+                }
                 break;
 
         }
 
-        if(!already_has_item)
-        {
-            selected_item = num_items;
+        //sets all new items to active, all others to not active
+        EquipItem(selected_item);
 
-            switch(NewItem.Name)
-            {
-                case "Corndog":
-                    images[num_items].GetComponent<Image>().sprite = corndog;
-                    EquipItem(num_items++);
-                    break;
-                case "Tomato":
-                    images[num_items].GetComponent<Image>().sprite = tomato;
-                    EquipItem(num_items++);
-                    break;
-                case "CottonCandy":
-                    images[num_items].GetComponent<Image>().sprite = cotton_candy;
-                    EquipItem(num_items++);
-                    break;
-            }
-        }
     }
 
     
@@ -180,6 +203,21 @@ public class Inventory : MonoBehaviour
                     }
 
                     return obj;
+
+                case 3:
+                    obj = item_3[--item_3_amount];
+                    item_3[item_3_amount] = null;
+                    numbers_text[3].text = item_2_amount.ToString();
+
+                    if (item_3_amount == 0)
+                    {
+                        num_items--;
+                        GameObject.Find("Player").GetComponent<PlayerAttack>().UnequipThrowable();
+                        numbers_text[3].gameObject.transform.parent.gameObject.SetActive(false);
+                        images[3].GetComponent<Image>().sprite = null;
+                    }
+
+                    return obj;
             }
         }
         return null;
@@ -192,8 +230,6 @@ public class Inventory : MonoBehaviour
         switch (selected_item)
         {
             case 0:
-                Debug.Log(item_0_amount + " | EquipItem()");
-
                 for(int i = 0; i < item_0_amount; i++)
                 {
                     item_0[i].SetActive(true);
@@ -215,9 +251,6 @@ public class Inventory : MonoBehaviour
                 {
                     item_3[i].SetActive(false);
                 }
-
-                Debug.Log(item_0[0]);
-
 
                 if (item_0[0] != null)
                 {
@@ -304,7 +337,7 @@ public class Inventory : MonoBehaviour
 
                 for (int i = 0; i < item_1_amount; i++)
                 {
-                    item_1[i].SetActive(true);
+                    item_1[i].SetActive(false);
                 }
 
                 for (int i = 0; i < item_2_amount; i++)
@@ -314,7 +347,7 @@ public class Inventory : MonoBehaviour
 
                 for (int i = 0; i < item_3_amount; i++)
                 {
-                    item_3[i].SetActive(false);
+                    item_3[i].SetActive(true);
                 }
 
                 if (item_3[0] != null)

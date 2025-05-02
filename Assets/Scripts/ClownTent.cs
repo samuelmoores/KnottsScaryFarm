@@ -82,7 +82,8 @@ public class ClownTent : MonoBehaviour
             if(throwTimer <= 0.0f && distance_to_player < throw_distance && !foundCorndog)
             {
                 animator.SetTrigger("throw");
-                throwTimer = Random.Range(2.0f, 4.0f);
+                //throwTimer = Random.Range(2.0f, 4.0f);
+                throwTimer = 5.0f;
             }
         }
         else if(exitSpawnTimer > 0.0f)
@@ -130,7 +131,7 @@ public class ClownTent : MonoBehaviour
         if(collision.gameObject.CompareTag("Pickup") && !dead && !damaged)
         {
             coin_instance = GameObject.Instantiate(coin, coinSpawnPosition.position, Quaternion.identity);
-            coin_instance.GetComponent<Rigidbody>().AddForce(coinSpawnPosition.up * 1000.0f);
+            coin_instance.GetComponent<Rigidbody>().AddForce(coinSpawnPosition.up * 250.0f);
             coin_instance.GetComponent<Rigidbody>().angularVelocity = new Vector3(2, 4, 5);
 
             animator.SetTrigger("damage");
