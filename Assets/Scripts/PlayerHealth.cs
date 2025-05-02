@@ -8,18 +8,22 @@ public class PlayerHealth : MonoBehaviour
 
     Animator animator;
     Rigidbody rb;
+    Inventory inventory;
 
     float health = 1.0f;
     bool dead = false;
     bool damaged = false;
+    bool healing = false;
     float damageTimer = 0.0f;
     float restartTimer = 4.0f;
+    float healCooldown = -1;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         damageTimer = damageAnimation.length;
         animator = GetComponent<Animator>();
+        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
     }
 
     // Update is called once per frame
@@ -43,6 +47,36 @@ public class PlayerHealth : MonoBehaviour
             damaged = false;
             damageTimer = damageAnimation.length;
         }
+
+        healCooldown -= Time.deltaTime;
+
+        if(Input.GetKeyDown(KeyCode.Q) && healCooldown < 0.0f)
+        {
+            healCooldown = 2.6f;
+            float healAmount = inventory.Heal();
+
+            if(healAmount > 0.0f)
+            {
+                animator.SetTrigger("heal");
+            }
+
+            if(health + healAmount <= 1.0f)
+            {
+                health += healAmount;
+            }
+            else
+            {
+                health = 1.0f;
+            }
+        }
+
+        healing = healCooldown > 0.0f;
+
+    }
+
+    public void DropHeal()
+    {
+        inventory.DropHeal();
     }
 
     public void TakeDamage(float damageAmount)
@@ -60,7 +94,12 @@ public class PlayerHealth : MonoBehaviour
 
     public bool canMove()
     {
-        return !dead && !damaged;
+        return !dead && !damaged && !healing;
+    }
+
+    public float GetHealth()
+    {
+        return health;
     }
 
     private void OnCollisionEnter(Collision collision)

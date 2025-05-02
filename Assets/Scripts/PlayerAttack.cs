@@ -8,6 +8,7 @@ public class PlayerAttack : MonoBehaviour
     Inventory inventory;
     PlayerMovement playerMovement;
     Animator animator;
+    GameObject WhiteClown;
 
     bool attacking = false;
     float coolDown = 0.0f;
@@ -20,6 +21,7 @@ public class PlayerAttack : MonoBehaviour
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
         playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
         animator = GameObject.Find("Player").GetComponent<Animator>();
+        WhiteClown = GameObject.Find("CircusTentClown");
     }
 
     // Update is called once per frame
@@ -54,14 +56,26 @@ public class PlayerAttack : MonoBehaviour
     public void Throw()
     {
         GameObject objectToThrow = inventory.Use();
+        Pickup pickup = objectToThrow.GetComponent<Pickup>();
+        pickup.Drop();
 
-        if(objectToThrow != null)
+        if(objectToThrow != null && pickup.Name != "CottonCandy")
         {
             objectToThrow.transform.parent = null;
             Rigidbody rb = objectToThrow.GetComponent<Rigidbody>();
             rb.AddForce(gameObject.transform.forward * 30.0f, ForceMode.Impulse);
             rb.useGravity = true;
             objectToThrow.GetComponent<MeshCollider>().enabled = true;
+        }
+
+
+        if(pickup.Name == "Corndog")
+        {
+            WhiteClown.GetComponent<ClownTent>().LookAtCorndog(objectToThrow);
+        }
+        else if(pickup.Name == "CottonCandy")
+        {
+            Debug.Log("Heal");
         }
     }
 

@@ -95,20 +95,23 @@ public class PlayerMovement : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.LeftShift) && playerSpeed == 4)
             {
                 playerSpeed *= 2.0f; 
+                animator.SetBool("sprint", true);
             }
 
             if (Input.GetKeyUp(KeyCode.LeftShift) && playerSpeed == 8)
             {
                 playerSpeed /= 2.0f;
+                animator.SetBool("sprint", false);
+
             }
 
             controller.Move((direction * playerSpeed + velocity) * Time.deltaTime);
             animator.SetBool("running", direction != Vector3.zero);
-            animator.SetBool("sprint", Input.GetKey(KeyCode.LeftShift));
             animator.SetBool("aiming", aiming);
         }
     }
 
+    
     public void Footstep()
     {
         if(onGrass)

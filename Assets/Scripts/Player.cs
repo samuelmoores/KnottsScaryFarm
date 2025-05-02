@@ -43,7 +43,6 @@ public class Player : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Tab))
         {
-
             if (pauseMenu.activeSelf)
             {
                 Time.timeScale = 1.0f;
@@ -67,7 +66,6 @@ public class Player : MonoBehaviour
                 inventory.Add(pickup);
                 pickup.Take();
                 foundPickup = false;
-                playerAttack.EquipThrowable();
             }
         }
 
@@ -82,6 +80,7 @@ public class Player : MonoBehaviour
         {
             foundPickup = true;
             pickup = other.gameObject.GetComponent<Pickup>();
+            other.gameObject.GetComponent<SphereCollider>().enabled = false;
         }
     }
 

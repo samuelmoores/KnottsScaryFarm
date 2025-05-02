@@ -19,6 +19,7 @@ public class Pickup : MonoBehaviour
         //hello sam
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerHand = GameObject.Find("Player").GetComponent<Player>().handSocket;
+
     }
 
     // Update is called once per frame
@@ -28,25 +29,54 @@ public class Pickup : MonoBehaviour
         {
             transform.Rotate(new Vector3(0.0f, rotationSpeed * Time.deltaTime, 0.0f));
         }
+        else
+        {
+            transform.localPosition = Vector3.zero;
+        }
+    }
+
+    public void Drop()
+    {
+        pickedUp = false;
+
     }
 
     public void Take()
     {
         if(!pickedUp)
         {
-            pickedUp = true;
-            gm.HideInteractText();
-            SoundManager.instance.PlaySound(PickupSound, transform, 0.15f);
-            rotationSpeed = 0.0f;
-            transform.position = Vector3.zero;
             if(rb)
             {
                 rb.useGravity = false;
                 rb.gameObject.GetComponent<MeshCollider>().enabled = false;
-                GameObject.Find("Player").GetComponent<PlayerAttack>().EquipThrowable();
             }
-            transform.SetParent(playerHand.transform, false); 
+
+            pickedUp = true;
+            gm.HideInteractText();
+            SoundManager.instance.PlaySound(PickupSound, transform, 0.15f);
+            rotationSpeed = 0.0f;
+            transform.SetParent(playerHand.transform, false);
+            transform.localPosition = Vector3.zero;
         }
+    }
+
+    public void AddToInventory()
+    {
+        playerHand = GameObject.Find("Player").GetComponent<Player>().handSocket;
+        rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        rb.gameObject.GetComponent<MeshCollider>().enabled = false;
+        
+        pickedUp = true;
+        rotationSpeed = 0.0f;
+        transform.SetParent(playerHand.transform, false);
+        transform.localPosition = Vector3.zero;
+    }
+
+    public void Equip()
+    {
+        transform.SetParent(playerHand.transform, false);
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -57,7 +87,7 @@ public class Pickup : MonoBehaviour
 
             if(rb)
             {
-                if(rb.linearVelocity == Vector3.zero)
+                if(rb.linearVelocity.magnitude < 0.2f)
                 {
                     gm.ShowInteractText(Name);
                 }

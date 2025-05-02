@@ -26,7 +26,7 @@ public class CameraCollider : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         //desiredCameraPos = transform.parent.TransformPoint(dollyDir * maxDistance);
         desiredCameraPos = transform.position;
@@ -37,12 +37,20 @@ public class CameraCollider : MonoBehaviour
 
         if (Physics.Linecast(transform.parent.position, desiredCameraPos + transform.right * colliderWidth, out hit) && hit.transform.gameObject.layer != 1)
         {
-            distance = Mathf.Clamp((hit.distance * 0.9f), minDistance, maxDistance);
+            float newDistance = Mathf.Clamp(hit.distance * 0.9f, minDistance, maxDistance);
+            if (Mathf.Abs(newDistance - distance) > 0.05f)
+            {
+                distance = newDistance;
+            }
 
         }
         else if(Physics.Linecast(transform.parent.position, desiredCameraPos + transform.right * -colliderWidth, out hit) && hit.transform.gameObject.layer != 1)
         {
-            distance = Mathf.Clamp((hit.distance * 0.9f), minDistance, maxDistance);
+            float newDistance = Mathf.Clamp(hit.distance * 0.9f, minDistance, maxDistance);
+            if (Mathf.Abs(newDistance - distance) > 0.05f)
+            {
+                distance = newDistance;
+            }
 
         }
         else

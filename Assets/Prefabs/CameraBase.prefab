@@ -200,5 +200,7 @@ MonoBehaviour:
   minDistance: 1
   maxDistance: 6
   smooth: 20
+  colliderWidth: 0
   dollyDirAdjusted: 0
   distance: 0
+  aimDistance: 0
