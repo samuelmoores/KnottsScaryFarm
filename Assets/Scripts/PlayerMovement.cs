@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,9 +14,14 @@ public class PlayerMovement : MonoBehaviour
     public float footstepVolume;
     public float jumpHeight;
 
+    public Transform RegularTarget;
+    public Transform AimTarget;
+
     CharacterController controller;
     Animator animator;
     GameObject cam;
+    CinemachineCamera cam_cine;
+    CinemachineOrbitalFollow cam_follow;
     PlayerHealth health;
     PlayerAttack playerAttack;
     Vector3 velocity;
@@ -32,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
         playerAttack = GetComponent<PlayerAttack>();
         
         cam = GameObject.Find("Main Camera");
+        cam_cine = GameObject.Find("FreeLook Camera").GetComponent<CinemachineCamera>();
+        cam_follow = GameObject.Find("FreeLook Camera").GetComponent<CinemachineOrbitalFollow>();
     }
 
     // Update is called once per frame
@@ -48,14 +56,25 @@ public class PlayerMovement : MonoBehaviour
             {
                 aiming = Input.GetKey(KeyCode.Mouse1);
             }
-            else
+            else if(!Input.GetKey(KeyCode.Mouse1))
             {
                 aiming = false;
             }
 
             if (aiming)
             {
-                GameObject cam = GameObject.Find("Main Camera");
+                cam_cine.Follow = AimTarget;
+                cam_cine.LookAt = AimTarget;
+
+                cam_follow.Orbits.Top.Height = 1.11f;
+                cam_follow.Orbits.Top.Radius = 0.94f;
+
+                cam_follow.Orbits.Center.Height = 0.3f;
+                cam_follow.Orbits.Center.Radius = 1.22f;
+
+                cam_follow.Orbits.Bottom.Height = -1.38f;
+                cam_follow.Orbits.Bottom.Radius = 1.04f;
+
                 Vector3 playerRotation = transform.eulerAngles;
                 float cameraYRotation = cam.transform.eulerAngles.y;
                 transform.rotation = Quaternion.Euler(playerRotation.x, cameraYRotation, playerRotation.z);
@@ -64,6 +83,20 @@ public class PlayerMovement : MonoBehaviour
 
                 animator.SetFloat("directionX", horizontal);
                 animator.SetFloat("directionZ", vertical);
+            }
+            else
+            {
+                cam_cine.Follow = RegularTarget;
+                cam_cine.LookAt = RegularTarget;
+
+                cam_follow.Orbits.Top.Height = 2.8f;
+                cam_follow.Orbits.Top.Radius = 1.54f;
+
+                cam_follow.Orbits.Center.Height = 0.9f;
+                cam_follow.Orbits.Center.Radius = 3.88f;
+
+                cam_follow.Orbits.Bottom.Height = -1.5f;
+                cam_follow.Orbits.Bottom.Radius = 1.64f;
             }
 
             if (direction != Vector3.zero && !aiming)
@@ -92,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
                 velocity.y += Physics.gravity.y * Time.deltaTime * 2.0f;
             }
             
-            if(Input.GetKeyDown(KeyCode.LeftShift) && playerSpeed == 4)
+            if(Input.GetKeyDown(KeyCode.LeftShift) && playerSpeed == 4 && !aiming)
             {
                 playerSpeed *= 2.0f; 
                 animator.SetBool("sprint", true);

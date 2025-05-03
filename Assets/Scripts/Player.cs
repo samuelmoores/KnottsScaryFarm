@@ -90,6 +90,7 @@ public class Player : MonoBehaviour
         {
             foundPickup = false;
             pickup = null;
+            other.gameObject.GetComponent<Pickup>().HideInteractText();
         }
     }
 }

@@ -66,7 +66,7 @@ public class GameManager_Level_01 : MonoBehaviour
             GameObject corndog_instance = Instantiate(corndog);
 
             Pickup pickup = corndog_instance.GetComponent<Pickup>();
-            inventory.Add(pickup);
+            inventory.Add(pickup, true);
             pickup.AddToInventory();
 
         }

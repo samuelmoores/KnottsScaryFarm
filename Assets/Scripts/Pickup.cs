@@ -101,6 +101,12 @@ public class Pickup : MonoBehaviour
         }
     }
 
+    public void HideInteractText()
+    {
+        gm.HideInteractText();
+
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))

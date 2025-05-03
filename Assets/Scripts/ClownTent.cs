@@ -26,6 +26,7 @@ public class ClownTent : MonoBehaviour
 
     GameObject corndog;
     bool foundCorndog = false;
+    float corndog_fascination_timer = -1.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -41,13 +42,25 @@ public class ClownTent : MonoBehaviour
     {
         if(!dead)
         {
-            if(!foundCorndog)
+            if(foundCorndog && corndog_fascination_timer < 0.0f)
+            {
+                corndog_fascination_timer = 7.0f;
+            }
+
+            if(corndog_fascination_timer < 0.0f)
             {
                 transform.LookAt(player.transform, Vector3.up);
             }
             else
             {
                 transform.LookAt(corndog.transform, Vector3.up);
+                corndog_fascination_timer -= Time.deltaTime;
+
+                if(corndog_fascination_timer < 0.0f)
+                {
+                    foundCorndog = false;
+                }
+
             }
 
             transform.rotation = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f);
@@ -66,11 +79,7 @@ public class ClownTent : MonoBehaviour
             {
                 animator.SetBool("turningRight", false);
                 animator.SetBool("turningLeft", false);
-
-                if(foundCorndog)
-                {
-                    animator.SetBool("foundCorndog", true);
-                }
+                animator.SetBool("foundCorndog", foundCorndog);
             }
 
             prev_y_rotation = transform.rotation.eulerAngles.y;
@@ -82,8 +91,7 @@ public class ClownTent : MonoBehaviour
             if(throwTimer <= 0.0f && distance_to_player < throw_distance && !foundCorndog)
             {
                 animator.SetTrigger("throw");
-                //throwTimer = Random.Range(2.0f, 4.0f);
-                throwTimer = 5.0f;
+                throwTimer = Random.Range(2.0f, 3.5f);
             }
         }
         else if(exitSpawnTimer > 0.0f)
@@ -104,7 +112,9 @@ public class ClownTent : MonoBehaviour
         {
             tomato_instance = Instantiate(tomato, hand.position, tomato.transform.rotation);
             Rigidbody rb = tomato_instance.GetComponent<Rigidbody>();
-            rb.AddForce((throwTarget.position - hand.position).normalized * throwSpeed, ForceMode.Impulse);
+            //rb.AddForce((throwTarget.position - hand.position).normalized * throwSpeed, ForceMode.Impulse);
+            rb.AddForce(transform.forward * throwSpeed, ForceMode.Impulse);
+
             rb.angularVelocity = tomato_instance.transform.right * -15.0f;
         }
     }

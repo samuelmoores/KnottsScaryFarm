@@ -52,7 +52,7 @@ public class Inventory : MonoBehaviour
 
     }
 
-    public void Add(Pickup NewItem)
+    public void Add(Pickup NewItem, bool won = false)
     {
         GameObject[] items_first = { item_0[0], item_1[0], item_2[0], item_3[0] };
         bool already_has_item = false;
@@ -143,7 +143,15 @@ public class Inventory : MonoBehaviour
         }
 
         //sets all new items to active, all others to not active
-        EquipItem(selected_item);
+        
+        if(!won)
+        {
+            EquipItem(selected_item);
+        }
+        else
+        {
+            EquipItem(selected_item + 1);
+        }
 
     }
 
@@ -233,7 +241,6 @@ public class Inventory : MonoBehaviour
                 for(int i = 0; i < item_0_amount; i++)
                 {
                     item_0[i].SetActive(true);
-                    Debug.Log(item_0[0]);
 
                 }
 
@@ -409,6 +416,37 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
+    }
+
+    public bool TakeCoin()
+    {
+        GameObject[][] items = { item_0, item_1, item_2, item_3 };
+        int[] items_amounts = { item_0_amount, item_1_amount, item_2_amount, item_3_amount };
+
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (items[i][0] != null)
+            {
+                Pickup pickup = items[i][0].GetComponent<Pickup>();
+
+                if(pickup.Name == "Coin")
+                {
+                    Destroy(items[i][items_amounts[i] - 1]);
+                    items[i][items_amounts[i] - 1] = null;
+
+                    int selected_item_saved = selected_item;
+                    selected_item = i;
+                    Use();
+
+                    selected_item = selected_item_saved;
+
+                    return true;
+                }
+
+            }
+        }
+        return false;
     }
 
     public bool CheckInventory()

@@ -29,7 +29,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if(playerMovement.IsAiming())
+            if(ThrowableEquiped())
             {
                 animator.SetTrigger("throw");
                 playerMovement.playerSpeed = 0.0f;
@@ -59,7 +59,7 @@ public class PlayerAttack : MonoBehaviour
         Pickup pickup = objectToThrow.GetComponent<Pickup>();
         pickup.Drop();
 
-        if(objectToThrow != null && pickup.Name != "CottonCandy")
+        if(pickup.Name != "CottonCandy")
         {
             objectToThrow.transform.parent = null;
             Rigidbody rb = objectToThrow.GetComponent<Rigidbody>();

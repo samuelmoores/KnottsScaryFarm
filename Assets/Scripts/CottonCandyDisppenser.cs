@@ -5,12 +5,12 @@ public class CottonCandyDisppenser : MonoBehaviour
     public GameObject cotton_candy_prefab;
     public Transform dispense_location;
     GameObject cotton_candy;
-    
+    Inventory inventory;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
-        
+        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
     }
 
     // Update is called once per frame
@@ -28,7 +28,7 @@ public class CottonCandyDisppenser : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if(other.CompareTag("Player") && inventory.TakeCoin())
         {
             Dispense();
         }
