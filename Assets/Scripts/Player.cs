@@ -80,7 +80,6 @@ public class Player : MonoBehaviour
         {
             foundPickup = true;
             pickup = other.gameObject.GetComponent<Pickup>();
-            other.gameObject.GetComponent<SphereCollider>().enabled = false;
         }
     }
 

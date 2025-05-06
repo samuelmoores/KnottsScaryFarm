@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
+    public GameObject Coin_Prefab;
+
     public GameObject[] images;
     public GameObject[] numbers;
 
@@ -16,13 +18,14 @@ public class Inventory : MonoBehaviour
     GameObject[] item_2;
     GameObject[] item_3;
 
-    int num_items = 0;
-    int selected_item = 0;
-    int item_0_amount = 0;
-    int item_1_amount = 0;
-    int item_2_amount = 0;
-    int item_3_amount = 0;
+    static int num_items = 0;
+    static int item_0_amount = 0;
+    static int item_1_amount = 0;
+    static int item_2_amount = 0;
+    static int item_3_amount = 0;
 
+
+    int selected_item = 0;
     Sprite corndog;
     Sprite tomato;
     Sprite cotton_candy;
@@ -35,7 +38,6 @@ public class Inventory : MonoBehaviour
         tomato = Resources.Load<Sprite>("Tomato");
         cotton_candy = Resources.Load<Sprite>("CottonCandy");
         coin = Resources.Load<Sprite>("Coin");
-
 
         item_0 = new GameObject[10];
         item_1 = new GameObject[10];
@@ -50,6 +52,22 @@ public class Inventory : MonoBehaviour
             numbers_text[i].gameObject.transform.parent.gameObject.SetActive(false);
         }
 
+        Debug.Log(item_0_amount);
+
+        if(item_0_amount > 0)
+        {
+            images[selected_item].GetComponent<Image>().sprite = coin;
+            numbers_text[0].gameObject.transform.parent.gameObject.SetActive(true);
+            numbers_text[0].text = item_0_amount.ToString();
+
+            for (int i = 0; i < item_0_amount; i++)
+            {
+                item_0[i] = GameObject.Instantiate(Coin_Prefab, Vector3.zero, Quaternion.identity);
+                item_0[i].GetComponent<Pickup>().AddToInventory();
+            }
+
+            EquipItem(0);
+        }
     }
 
     public void Add(Pickup NewItem, bool won = false)
@@ -158,7 +176,8 @@ public class Inventory : MonoBehaviour
     
     public void Drop()
     {
-
+        Destroy(item_0[0]);
+        Use();
     }
 
     public GameObject Use()
@@ -241,7 +260,6 @@ public class Inventory : MonoBehaviour
                 for(int i = 0; i < item_0_amount; i++)
                 {
                     item_0[i].SetActive(true);
-
                 }
 
                 for (int i = 0; i < item_1_amount; i++)
@@ -423,7 +441,6 @@ public class Inventory : MonoBehaviour
         GameObject[][] items = { item_0, item_1, item_2, item_3 };
         int[] items_amounts = { item_0_amount, item_1_amount, item_2_amount, item_3_amount };
 
-
         for (int i = 0; i < 4; i++)
         {
             if (items[i][0] != null)
@@ -451,7 +468,24 @@ public class Inventory : MonoBehaviour
 
     public bool CheckInventory()
     {
-        return num_items > 0;
+        if(num_items == 0)
+        {
+            return false;
+        }
+        else
+        {
+            GameObject[][] items = { item_0, item_1, item_2, item_3 };
+
+            for (int i = 0; i < num_items; i++)
+            {
+                if (items[i][0].GetComponent<Pickup>().Name == "Corndog")
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public void Show()

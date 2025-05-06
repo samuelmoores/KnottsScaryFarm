@@ -14,6 +14,7 @@ public class PlayerHealth : MonoBehaviour
     bool dead = false;
     bool damaged = false;
     bool healing = false;
+    bool dancing = false;
     float damageTimer = 0.0f;
     float restartTimer = 4.0f;
     float healCooldown = -1;
@@ -79,6 +80,11 @@ public class PlayerHealth : MonoBehaviour
         inventory.DropHeal();
     }
 
+    public void GetExcitedToGoSeeBrian()
+    {
+        dancing = true;
+    }
+
     public void TakeDamage(float damageAmount)
     {
         damaged = true;
@@ -94,7 +100,7 @@ public class PlayerHealth : MonoBehaviour
 
     public bool canMove()
     {
-        return !dead && !damaged && !healing;
+        return !dead && !damaged && !healing && !dancing;
     }
 
     public float GetHealth()

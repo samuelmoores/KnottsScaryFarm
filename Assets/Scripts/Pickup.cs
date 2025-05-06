@@ -11,7 +11,7 @@ public class Pickup : MonoBehaviour
     GameManager gm;
     Rigidbody rb;
 
-    bool pickedUp;
+    bool pickedUp = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,7 +27,7 @@ public class Pickup : MonoBehaviour
     {
         if(!pickedUp)
         {
-            transform.Rotate(new Vector3(0.0f, rotationSpeed * Time.deltaTime, 0.0f));
+            transform.Rotate(new Vector3(0.0f, rotationSpeed * Time.deltaTime, 0.0f), Space.World);
         }
         else
         {
@@ -52,8 +52,10 @@ public class Pickup : MonoBehaviour
             }
 
             pickedUp = true;
+            
             gm.HideInteractText();
             SoundManager.instance.PlaySound(PickupSound, transform, 0.15f);
+            
             rotationSpeed = 0.0f;
             transform.SetParent(playerHand.transform, false);
             transform.localPosition = Vector3.zero;

@@ -7,6 +7,7 @@ public class PlayerAttack : MonoBehaviour
     public AnimationClip ThrowAnimation;
     Inventory inventory;
     PlayerMovement playerMovement;
+    PlayerAttack playerAttack;
     Animator animator;
     GameObject WhiteClown;
 
@@ -29,7 +30,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if(ThrowableEquiped())
+            if(playerMovement.IsAiming())
             {
                 animator.SetTrigger("throw");
                 playerMovement.playerSpeed = 0.0f;
@@ -69,13 +70,9 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        if(pickup.Name == "Corndog")
+        if(pickup.Name == "Corndog" && WhiteClown)
         {
             WhiteClown.GetComponent<ClownTent>().LookAtCorndog(objectToThrow);
-        }
-        else if(pickup.Name == "CottonCandy")
-        {
-            Debug.Log("Heal");
         }
     }
 

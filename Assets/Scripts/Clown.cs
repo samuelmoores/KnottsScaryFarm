@@ -7,6 +7,10 @@ public class Clown : MonoBehaviour
     public GameObject fence;
     public AudioClip wrongSound;
     public AudioClip rightSound;
+    public Transform tomatoSpawm;
+    public GameObject Tomato_Prefab;
+    GameObject Tomato;
+
 
     Player player;
     GameManager gm;
@@ -41,6 +45,9 @@ public class Clown : MonoBehaviour
                 else
                 {
                     SoundManager.instance.PlaySound(wrongSound, transform, 0.05f);
+                    Tomato = GameObject.Instantiate(Tomato_Prefab, tomatoSpawm.position, Quaternion.identity);
+                    Rigidbody rb = Tomato.GetComponent<Rigidbody>();
+                    rb.AddForce(tomatoSpawm.forward * 500.0f);
                 }
             }
         }
