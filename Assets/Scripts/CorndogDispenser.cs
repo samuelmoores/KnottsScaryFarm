@@ -26,19 +26,25 @@ public class CorndogDispenser : MonoBehaviour
         {
             Inventory inventory = player.GetInventory();
 
-            while (inventory.TakeCoin())
-            {
-                num_coins++;
+            Debug.Log("The player has: " + inventory.CheckCoinAmount() + " coins");
 
-                if (num_coins >= 3)
+            if(inventory.CheckCoinAmount() >= 3)
+            {
+                while (inventory.TakeCoin())
                 {
-                    gm.HideInteractText();
-                    CornDog = GameObject.Instantiate(CornDog_Prefab, spawnLocation.position, Quaternion.identity);
-                    Rigidbody rb = CornDog.GetComponent<Rigidbody>();
-                    rb.AddForce(spawnLocation.transform.forward * 250.0f);
-                    break;
+                    num_coins++;
+
+                    if (num_coins >= 3)
+                    {
+                        gm.HideInteractText();
+                        CornDog = GameObject.Instantiate(CornDog_Prefab, spawnLocation.position, Quaternion.identity);
+                        Rigidbody rb = CornDog.GetComponent<Rigidbody>();
+                        rb.AddForce(spawnLocation.transform.forward * 250.0f);
+                        break;
+                    }
                 }
             }
+
         }
     }
 

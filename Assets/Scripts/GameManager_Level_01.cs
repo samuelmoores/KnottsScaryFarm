@@ -11,9 +11,9 @@ public class GameManager_Level_01 : MonoBehaviour
 
     int score_to_win = 3;
     public int score = 0;
+    bool won = false;
 
     Inventory inventory;
-    bool test = true;
 
     private void Awake()
     {
@@ -31,18 +31,17 @@ public class GameManager_Level_01 : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Wall_Door.SetActive(true);
-        Wall.SetActive(false);
+        Wall_Door.SetActive(false);
+        Wall.SetActive(true);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(score == 3 && test)
+        if(score == 3 && !won)
         {
             Win();
-            test = false;
         }
     }
 
@@ -70,6 +69,8 @@ public class GameManager_Level_01 : MonoBehaviour
             pickup.AddToInventory();
 
         }
+
+        won = true;
     }
 
 }

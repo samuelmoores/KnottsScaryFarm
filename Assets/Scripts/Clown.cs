@@ -11,6 +11,7 @@ public class Clown : MonoBehaviour
     public GameObject Tomato_Prefab;
     GameObject Tomato;
 
+    float tomatoSpawnCooldown = -1.0f;
 
     Player player;
     GameManager gm;
@@ -42,14 +43,20 @@ public class Clown : MonoBehaviour
                     AcceptGift();
                     inventory.Drop();
                 }
-                else
+                else if(tomatoSpawnCooldown < 0.0f)
                 {
                     SoundManager.instance.PlaySound(wrongSound, transform, 0.05f);
                     Tomato = GameObject.Instantiate(Tomato_Prefab, tomatoSpawm.position, Quaternion.identity);
                     Rigidbody rb = Tomato.GetComponent<Rigidbody>();
                     rb.AddForce(tomatoSpawm.forward * 500.0f);
+                    tomatoSpawnCooldown = 3.0f;
                 }
             }
+        }
+
+        if(tomatoSpawnCooldown > 0.0f)
+        {
+            tomatoSpawnCooldown -= Time.deltaTime;
         }
     }
 

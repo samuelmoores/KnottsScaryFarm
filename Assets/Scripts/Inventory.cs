@@ -1,13 +1,19 @@
 using NUnit.Framework;
+using System.Linq.Expressions;
 using TMPro;
 using Unity.UI;
 using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
     public GameObject Coin_Prefab;
+    public GameObject Tomato_Prefab;
+    public GameObject Corndog_Prefab;
+    public GameObject CottonCandy_Prefab;
+
 
     public GameObject[] images;
     public GameObject[] numbers;
@@ -23,6 +29,11 @@ public class Inventory : MonoBehaviour
     static int item_1_amount = 0;
     static int item_2_amount = 0;
     static int item_3_amount = 0;
+
+    static string item_0_name;
+    static string item_1_name;
+    static string item_2_name;
+    static string item_3_name;
 
 
     int selected_item = 0;
@@ -52,22 +63,66 @@ public class Inventory : MonoBehaviour
             numbers_text[i].gameObject.transform.parent.gameObject.SetActive(false);
         }
 
-        Debug.Log(item_0_amount);
+        int[] itemAmounts = { item_0_amount, item_1_amount, item_2_amount, item_3_amount };
+        GameObject[][] items = { item_0, item_1, item_2, item_3 };
+        string[] names = { item_0_name, item_1_name, item_2_name, item_3_name };
 
-        if(item_0_amount > 0)
+        for(int i = 0; i < num_items; i++)
         {
-            images[selected_item].GetComponent<Image>().sprite = coin;
-            numbers_text[0].gameObject.transform.parent.gameObject.SetActive(true);
-            numbers_text[0].text = item_0_amount.ToString();
 
-            for (int i = 0; i < item_0_amount; i++)
+            if (itemAmounts[i] > 0)
             {
-                item_0[i] = GameObject.Instantiate(Coin_Prefab, Vector3.zero, Quaternion.identity);
-                item_0[i].GetComponent<Pickup>().AddToInventory();
+                numbers_text[i].gameObject.transform.parent.gameObject.SetActive(true);
+                numbers_text[i].text = itemAmounts[i].ToString();
+
+                switch(names[i])
+                {
+                    case "Coin":
+                        images[i].GetComponent<Image>().sprite = coin;
+
+                        for (int j = 0; j < itemAmounts[i]; j++)
+                        {
+                            items[i][j] = GameObject.Instantiate(Coin_Prefab, Vector3.zero, Quaternion.identity);
+                            items[i][j].GetComponent<Pickup>().AddToInventory();
+                        }
+                        break;
+
+                    case "Tomato":
+                        images[i].GetComponent<Image>().sprite = tomato;
+
+                        for (int j = 0; j < itemAmounts[i]; j++)
+                        {
+                            items[i][j] = GameObject.Instantiate(Tomato_Prefab, Vector3.zero, Quaternion.identity);
+                            items[i][j].GetComponent<Pickup>().AddToInventory();
+                        }
+                        break;
+
+                    case "Corndog":
+                        images[i].GetComponent<Image>().sprite = corndog;
+
+                        for (int j = 0; j < itemAmounts[i]; j++)
+                        {
+                            items[i][j] = GameObject.Instantiate(Corndog_Prefab, Vector3.zero, Quaternion.identity);
+                            items[i][j].GetComponent<Pickup>().AddToInventory();
+                        }
+                        break;
+
+                    case "CottonCandy":
+                        images[i].GetComponent<Image>().sprite = cotton_candy;
+
+                        for (int j = 0; j < itemAmounts[i]; j++)
+                        {
+                            items[i][j] = GameObject.Instantiate(CottonCandy_Prefab, Vector3.zero, Quaternion.identity);
+                            items[i][j].GetComponent<Pickup>().AddToInventory();
+                        }
+                        break;
+                }
+
             }
 
-            EquipItem(0);
         }
+
+        EquipItem(0);
     }
 
     public void Add(Pickup NewItem, bool won = false)
@@ -97,6 +152,8 @@ public class Inventory : MonoBehaviour
             }
         }
 
+        string[] names = { item_0_name, item_1_name, item_2_name, item_3_name };
+
         //adds new image to inventory
         if(!already_has_item)
         {
@@ -106,15 +163,19 @@ public class Inventory : MonoBehaviour
             {
                 case "Corndog":
                     images[selected_item].GetComponent<Image>().sprite = corndog;
+                    names[selected_item] = "Corndog";
                     break;
                 case "Tomato":
                     images[selected_item].GetComponent<Image>().sprite = tomato;
+                    names[selected_item] = "Tomato";
                     break;
                 case "CottonCandy":
                     images[selected_item].GetComponent<Image>().sprite = cotton_candy;
+                    names[selected_item] = "CottonCandy";
                     break;
                 case "Coin":
                     images[selected_item].GetComponent<Image>().sprite = coin;
+                    names[selected_item] = "Coin";
                     break;
             }
         }
@@ -128,8 +189,9 @@ public class Inventory : MonoBehaviour
                     item_0[item_0_amount++] = NewItem.gameObject;
                     numbers_text[0].gameObject.transform.parent.gameObject.SetActive(true);
                     numbers_text[0].text = item_0_amount.ToString();
+                    item_0_name = names[0];
                 }
-                break;
+                 break;
             case 1:
                 if(item_1_amount < 10)
                 {
@@ -137,8 +199,10 @@ public class Inventory : MonoBehaviour
 
                     numbers_text[1].gameObject.transform.parent.gameObject.SetActive(true);
                     numbers_text[1].text = item_1_amount.ToString();
+                    item_1_name = names[1];
+
                 }
-                break;
+                 break;
             case 2:
                 if (item_2_amount < 10)
                 {
@@ -146,6 +210,8 @@ public class Inventory : MonoBehaviour
 
                     numbers_text[2].gameObject.transform.parent.gameObject.SetActive(true);
                     numbers_text[2].text = item_2_amount.ToString();
+                    item_2_name = names[2];
+
                 }
                 break;
             case 3:
@@ -155,6 +221,8 @@ public class Inventory : MonoBehaviour
 
                     numbers_text[3].gameObject.transform.parent.gameObject.SetActive(true);
                     numbers_text[3].text = item_3_amount.ToString();
+                    item_3_name = names[3];
+
                 }
                 break;
 
@@ -168,7 +236,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            EquipItem(selected_item + 1);
+            EquipItem(selected_item);
         }
 
     }
@@ -184,12 +252,15 @@ public class Inventory : MonoBehaviour
     {
         if(num_items > 0)
         {
-            switch(selected_item)
+            string[] names = { item_0_name, item_1_name, item_2_name, item_3_name };
+
+            switch (selected_item)
             {
                 case 0:
                     GameObject obj = item_0[--item_0_amount];
                     item_0[item_0_amount] = null;
                     numbers_text[0].text = item_0_amount.ToString();
+                    names[0] = "";
 
                     if(item_0_amount == 0)
                     {
@@ -205,6 +276,7 @@ public class Inventory : MonoBehaviour
                     obj = item_1[--item_1_amount];
                     item_1[item_1_amount] = null;
                     numbers_text[1].text = item_1_amount.ToString();
+                    names[1] = "";
 
                     if (item_1_amount == 0)
                     {
@@ -220,6 +292,7 @@ public class Inventory : MonoBehaviour
                     obj = item_2[--item_2_amount];
                     item_2[item_2_amount] = null;
                     numbers_text[2].text = item_2_amount.ToString();
+                    names[2] = "";
 
                     if (item_2_amount == 0)
                     {
@@ -235,6 +308,7 @@ public class Inventory : MonoBehaviour
                     obj = item_3[--item_3_amount];
                     item_3[item_3_amount] = null;
                     numbers_text[3].text = item_2_amount.ToString();
+                    names[3] = "";
 
                     if (item_3_amount == 0)
                     {
@@ -434,6 +508,34 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
+    }
+
+    public int CheckCoinAmount()
+    {
+        Debug.Log("checking " + num_items + " for coins");
+
+        if (num_items == 0)
+            return 0;
+        else
+        {
+            GameObject[][] items = { item_0, item_1, item_2, item_3 };
+            int[] itemAmounts = { item_0_amount, item_1_amount, item_2_amount, item_3_amount };
+
+            for (int i = 0; i < num_items; i++)
+            {
+                Pickup pickup = items[i][0].GetComponent<Pickup>();
+
+                Debug.Log("pickup name: " + pickup.Name);
+                Debug.Log("pickup amount: " + itemAmounts[i]);
+                Debug.Log("---");
+
+
+                if (pickup.Name == "Coin")
+                    return itemAmounts[i];
+            }
+        }
+
+        return 0;
     }
 
     public bool TakeCoin()

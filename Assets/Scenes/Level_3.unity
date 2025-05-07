@@ -1577,6 +1577,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &500857453 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6739646590589929726, guid: 1110f9fbbd1af2f40b4b10d3afb7d6ad, type: 3}
+  m_PrefabInstance: {fileID: 1331528883}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &545061672 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7430758914311683451, guid: b3aabb1466d3b674fa735a0f97163c90, type: 3}
@@ -2984,6 +2989,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd0463ffd88782488915b9f00d7978a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Prize: {fileID: 500857453}
 --- !u!95 &905264098
 Animator:
   serializedVersion: 7
@@ -3982,6 +3988,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -203655887218126122, guid: b1b3f09e09b07364dbf2272e5bde9dbb, type: 3}
     - target: {fileID: 7596299499092580079, guid: d2a9eaf509a4f7a4bbccf9dff34fb0d0, type: 3}
+      propertyPath: footstepVolume
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7596299499092580079, guid: d2a9eaf509a4f7a4bbccf9dff34fb0d0, type: 3}
       propertyPath: footstepSound.Array.size
       value: 9
       objectReference: {fileID: 0}
@@ -4779,7 +4789,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1304693440}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -5062,6 +5072,22 @@ PrefabInstance:
       propertyPath: Coin
       value: 
       objectReference: {fileID: 5358534399815303375, guid: e579aefb342b35543bceaf84b6c6a060, type: 3}
+    - target: {fileID: 5666078408279523381, guid: 1110f9fbbd1af2f40b4b10d3afb7d6ad, type: 3}
+      propertyPath: Coin_Prefab
+      value: 
+      objectReference: {fileID: 5358534399815303375, guid: e579aefb342b35543bceaf84b6c6a060, type: 3}
+    - target: {fileID: 5666078408279523381, guid: 1110f9fbbd1af2f40b4b10d3afb7d6ad, type: 3}
+      propertyPath: Tomato_Prefab
+      value: 
+      objectReference: {fileID: 2453442126911007876, guid: 4428e4cfbb5ed1241b9c13267cde7b42, type: 3}
+    - target: {fileID: 5666078408279523381, guid: 1110f9fbbd1af2f40b4b10d3afb7d6ad, type: 3}
+      propertyPath: Corndog_Prefab
+      value: 
+      objectReference: {fileID: 1591149856703471941, guid: 091c2383b64cf2348a6b9a8dad028814, type: 3}
+    - target: {fileID: 5666078408279523381, guid: 1110f9fbbd1af2f40b4b10d3afb7d6ad, type: 3}
+      propertyPath: CottonCandy_Prefab
+      value: 
+      objectReference: {fileID: 5716589722750190339, guid: 58b912980be28fc40b2eddd7da90aa48, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -1025,7 +1025,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -10617,6 +10617,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9f832dd8a69b494fb404373981a03de, type: 3}
+--- !u!1 &1876558457 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6739646590589929726, guid: 1110f9fbbd1af2f40b4b10d3afb7d6ad, type: 3}
+  m_PrefabInstance: {fileID: 5527896883000122951}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1885075263
 GameObject:
   m_ObjectHideFlags: 0
@@ -10954,6 +10959,7 @@ MonoBehaviour:
   numCubes: 0
   exitLocation: {x: -25.47512, y: 1.1433091, z: 78.8}
   exitMeshes: {fileID: 108090771}
+  Prize: {fileID: 1876558457}
 --- !u!95 &1966014882
 Animator:
   serializedVersion: 7
@@ -12270,6 +12276,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5666078408279523381, guid: 1110f9fbbd1af2f40b4b10d3afb7d6ad, type: 3}
+      propertyPath: Coin_Prefab
+      value: 
+      objectReference: {fileID: 5358534399815303375, guid: e579aefb342b35543bceaf84b6c6a060, type: 3}
+    - target: {fileID: 5666078408279523381, guid: 1110f9fbbd1af2f40b4b10d3afb7d6ad, type: 3}
+      propertyPath: Tomato_Prefab
+      value: 
+      objectReference: {fileID: 2453442126911007876, guid: 4428e4cfbb5ed1241b9c13267cde7b42, type: 3}
+    - target: {fileID: 5666078408279523381, guid: 1110f9fbbd1af2f40b4b10d3afb7d6ad, type: 3}
+      propertyPath: Corndog_Prefab
+      value: 
+      objectReference: {fileID: 1591149856703471941, guid: 091c2383b64cf2348a6b9a8dad028814, type: 3}
+    - target: {fileID: 5666078408279523381, guid: 1110f9fbbd1af2f40b4b10d3afb7d6ad, type: 3}
+      propertyPath: CottonCandy_Prefab
+      value: 
+      objectReference: {fileID: 5716589722750190339, guid: 58b912980be28fc40b2eddd7da90aa48, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

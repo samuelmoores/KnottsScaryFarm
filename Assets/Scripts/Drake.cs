@@ -4,6 +4,8 @@ using UnityEngine.AI;
 
 public class Drake : MonoBehaviour
 {
+    public GameObject Prize;
+
     GameObject Player;
     PlayerHealth playerHealth;
     NavMeshAgent agent;
@@ -45,6 +47,7 @@ public class Drake : MonoBehaviour
                 notTired = false;
                 animator.SetBool("run", false);
                 agent.isStopped = true;
+                Prize.GetComponent<Prizes>().SetPrize(0);
             }
         }
         else if(runTimer > 0.0f)

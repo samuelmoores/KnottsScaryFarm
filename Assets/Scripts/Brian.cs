@@ -10,6 +10,7 @@ public class Brian : MonoBehaviour
     public int numCubes;
     public Vector3 exitLocation;
     public GameObject exitMeshes;
+    public GameObject Prize;
 
     Animator animator;
     NavMeshAgent agent;
@@ -112,6 +113,7 @@ public class Brian : MonoBehaviour
                     if(full)
                     {
                         agent.destination = exitLocation;
+                        Prize.GetComponent<Prizes>().SetPrize(1);
                     }
                 }
             }
@@ -122,7 +124,6 @@ public class Brian : MonoBehaviour
 
             if (full)
             {
-                Debug.Log(Vector3.Distance(transform.position, agent.destination));
                 animator.SetBool("walk", Vector3.Distance(transform.position, agent.destination) > 1);
             }
         }

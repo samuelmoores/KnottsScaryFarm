@@ -9,6 +9,7 @@ public class ClownTent : MonoBehaviour
     public Transform coinSpawnPosition;
     public float throwSpeed = 30.0f;
     public GameObject exitMeshes;
+    public GameObject Prize;
     float health = 1.0f;
     bool dead = false;
     bool damaged = false;
@@ -145,7 +146,7 @@ public class ClownTent : MonoBehaviour
             coin_instance.GetComponent<Rigidbody>().angularVelocity = new Vector3(2, 4, 5);
 
             animator.SetTrigger("damage");
-            health -= 0.1f;
+            health -= 1.1f;
             foundCorndog = false;
             animator.SetBool("foundCorndog", false);
 
@@ -154,6 +155,7 @@ public class ClownTent : MonoBehaviour
                 dead = true;
                 animator.SetBool("dead", true);
                 exitMeshes.transform.position = transform.position + (transform.forward * 3);
+                Prize.GetComponent<Prizes>().SetPrize(2);
             }
         }
     }
