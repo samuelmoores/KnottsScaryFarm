@@ -146,7 +146,7 @@ public class ClownTent : MonoBehaviour
             coin_instance.GetComponent<Rigidbody>().angularVelocity = new Vector3(2, 4, 5);
 
             animator.SetTrigger("damage");
-            health -= 1.1f;
+            health -= 0.1f;
             foundCorndog = false;
             animator.SetBool("foundCorndog", false);
 

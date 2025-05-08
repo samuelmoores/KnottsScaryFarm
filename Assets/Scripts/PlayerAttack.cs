@@ -10,6 +10,7 @@ public class PlayerAttack : MonoBehaviour
     PlayerAttack playerAttack;
     Animator animator;
     GameObject WhiteClown;
+    GameObject cam;
 
     bool attacking = false;
     float coolDown = 0.0f;
@@ -23,6 +24,7 @@ public class PlayerAttack : MonoBehaviour
         playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
         animator = GameObject.Find("Player").GetComponent<Animator>();
         WhiteClown = GameObject.Find("CircusTentClown");
+        cam = GameObject.Find("Main Camera");
     }
 
     // Update is called once per frame
@@ -64,7 +66,7 @@ public class PlayerAttack : MonoBehaviour
         {
             objectToThrow.transform.parent = null;
             Rigidbody rb = objectToThrow.GetComponent<Rigidbody>();
-            rb.AddForce(gameObject.transform.forward * 30.0f, ForceMode.Impulse);
+            rb.AddForce(cam.transform.forward * 30.0f, ForceMode.Impulse);
             rb.useGravity = true;
             objectToThrow.GetComponent<MeshCollider>().enabled = true;
         }
