@@ -578,10 +578,13 @@ public class Inventory : MonoBehaviour
 
             for (int i = 0; i < num_items; i++)
             {
-                if (items[i][0].GetComponent<Pickup>().Name == "Corndog")
+                if (items[i][0] != null)
                 {
-                    return true;
+                    if (items[i][0].GetComponent<Pickup>().Name == "Corndog")
+                        return true;
                 }
+                   
+
             }
         }
 
