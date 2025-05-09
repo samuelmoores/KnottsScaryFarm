@@ -7,7 +7,7 @@ public class TicketDispenser : MonoBehaviour
     public TextMeshProUGUI textMeshPro;
     GameManager gm;
     Player player;
-    int num_coins = 0;
+    static int num_coins = 0;
     bool foundPlayer = false;
     float GoingToSeeBrianTimer = -1.0f;
 
@@ -16,6 +16,8 @@ public class TicketDispenser : MonoBehaviour
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         player = GameObject.Find("Player").GetComponent<Player>();
+        textMeshPro.text = num_coins.ToString();
+
     }
 
     // Update is called once per frame

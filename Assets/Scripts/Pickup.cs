@@ -37,8 +37,8 @@ public class Pickup : MonoBehaviour
 
     public void Drop()
     {
+        GetComponent<SphereCollider>().enabled = true;
         pickedUp = false;
-
     }
 
     public void Take()
@@ -55,6 +55,7 @@ public class Pickup : MonoBehaviour
             
             gm.HideInteractText();
             SoundManager.instance.PlaySound(PickupSound, transform, 0.15f);
+            gameObject.GetComponent<SphereCollider>().enabled = false;
             
             rotationSpeed = 0.0f;
             transform.SetParent(playerHand.transform, false);

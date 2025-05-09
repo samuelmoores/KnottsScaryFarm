@@ -254,6 +254,8 @@ public class Inventory : MonoBehaviour
         {
             string[] names = { item_0_name, item_1_name, item_2_name, item_3_name };
 
+            Debug.Log("Get rid of item: " + selected_item);
+
             switch (selected_item)
             {
                 case 0:
@@ -262,7 +264,9 @@ public class Inventory : MonoBehaviour
                     numbers_text[0].text = item_0_amount.ToString();
                     names[0] = "";
 
-                    if(item_0_amount == 0)
+                    Debug.Log("item 0 amount: " + item_0_amount);
+
+                    if (item_0_amount == 0)
                     {
                         num_items--;
                         GameObject.Find("Player").GetComponent<PlayerAttack>().UnequipThrowable();
@@ -512,7 +516,6 @@ public class Inventory : MonoBehaviour
 
     public int CheckCoinAmount()
     {
-        Debug.Log("checking " + num_items + " for coins");
 
         if (num_items == 0)
             return 0;
@@ -524,11 +527,6 @@ public class Inventory : MonoBehaviour
             for (int i = 0; i < num_items; i++)
             {
                 Pickup pickup = items[i][0].GetComponent<Pickup>();
-
-                Debug.Log("pickup name: " + pickup.Name);
-                Debug.Log("pickup amount: " + itemAmounts[i]);
-                Debug.Log("---");
-
 
                 if (pickup.Name == "Coin")
                     return itemAmounts[i];

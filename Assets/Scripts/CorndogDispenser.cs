@@ -26,7 +26,6 @@ public class CorndogDispenser : MonoBehaviour
         {
             Inventory inventory = player.GetInventory();
 
-            Debug.Log("The player has: " + inventory.CheckCoinAmount() + " coins");
 
             if(inventory.CheckCoinAmount() >= 3)
             {
