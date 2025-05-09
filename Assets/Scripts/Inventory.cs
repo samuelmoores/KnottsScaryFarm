@@ -583,7 +583,7 @@ public class Inventory : MonoBehaviour
                     if (items[i][0].GetComponent<Pickup>().Name == "Corndog")
                         return true;
                 }
-                   
+                Debug.Log("I love Samuel Moores");
 
             }
         }
